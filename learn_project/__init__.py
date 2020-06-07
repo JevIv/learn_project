@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+import config as cfg
 
 def create_app():
     app = Flask(__name__) # создает экземпляр Flask в переменной app
