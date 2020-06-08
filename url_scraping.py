@@ -13,6 +13,7 @@ def get_products_urls(html):
 		prod_url = [] 	#список в который записываем ссылки товаров
 			for product in all_products: 
 			url = product.find('h3', class_ = 'snippet-title').find('a')['href']
+			url = "https://www.avito.ru" + url
 			prod_url.append(url) 
 		return prod_url
 
