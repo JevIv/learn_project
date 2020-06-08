@@ -1,5 +1,4 @@
 import requests
-from bs4 import BeautifulSoup as bs
 
 def check_url(url):
     try:
