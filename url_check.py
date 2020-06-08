@@ -1,3 +1,4 @@
+"""Модуль проверяет ссылки"""
 import requests
 
 def check_url(url):
