@@ -15,9 +15,8 @@ def get_html(url):
 def last_page(text):
     soup = bs(text, 'html.parser')
     pagination = soup.find_all('span', class_ = "pagination-item-1WyVp") # Находит 'кнопки' в разделе pagination
-    digits = re.findall(r'\d', pagination[-2]['data-marker']) # Вытаскивает цифры из предпоследней кнопки
-    last_page = ''
-    last_page = int(last_page.join(digits)) # Собирает список цифр в int
+    digits = re.findall(r'\d{2}', pagination[-2]['data-marker'],) # Вытаскивает цифры из предпоследней кнопки
+    last_page = int(digits[0]) # Преобрузует цифры в int
     return last_page
 
 # Делает итерацию по страницам
