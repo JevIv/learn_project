@@ -1,3 +1,4 @@
+"""Данный модуль собирает информацию со страницы товара и заводит её в словарь"""
 import requests
 from bs4 import BeautifulSoup as bs
 
@@ -9,8 +10,8 @@ def get_html(url):
 def get_product_details(html):
  	if html:
  		soup = bs(html, 'html.parser')
- 		product = soup.find('div', class_ = 'item-view js-item-view')
- 		try:
+ 		product = soup.find('div', class_ = 'item-view js-item-view')	#контейнер с товаром
+ 		try:															#все поиски ниже ведутся в нём
  			name = product.find('span', class_ = 'title-info-title-text').text
  		except:
  			name = ''
@@ -34,8 +35,9 @@ def get_product_details(html):
  			ad_number = product.find('div', class_ = 'item-view-search-info-redesign').find('span').text
  		except:
  			ad_number = ''
- 		images_urls = []
- 		try:
+ 		images_urls = []	#ниже идёт проверка на картинки,
+ 		try:				#сначала проверяет на список приложенных картинок, 
+ 							#если нету, то забирает главную картинку
 	 		gallery_list = product.find('ul', class_ = 'gallery-list js-gallery-list')
 	 		images = gallery_list.findAll('img')
 	 		for image in images:
@@ -47,7 +49,15 @@ def get_product_details(html):
 	 		for image in images:
 	 			urls = image['src']
 	 			images_urls.append(urls)
-	 	print(name)
+
+	 	details = {			#словарь в который собираются данные
+	 		'name':name,
+	 		'price':price,
+	 		'date':date,
+	 		'text':text,
+	 		'address':address,
+	 		'ad_number':ad_number,
+	 		'images_urls':images_urls}
 
 
 if __name__ == '__main__':
