@@ -3,9 +3,10 @@ import re
 import requests
 
 
-def get_html(url):  # Забирает одну страницу
+def get_html(url, page_number=1):  # Забирает одну страницу
+    params = {'p': page_number}
     try:
-        response = requests.get(url)  # сюда падает текст из ответа на get
+        response = requests.get(url, params=params)  # сюда падает текст из ответа на get
         response.raise_for_status()
         return response.text
     except(requests.RequestException, ValueError):
