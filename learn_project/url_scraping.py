@@ -4,10 +4,8 @@ from bs4 import BeautifulSoup as bs
 from url_check import check_url
 
 def get_html(urls):
-	for url in urls:
-	    r = requests.get(url)
-	   #return r.text
-	    get_products(r.text)
+	r = requests.get(url)
+	return r.text
 
 def get_products_urls(html):
 	if not html:
@@ -19,11 +17,11 @@ def get_products_urls(html):
 		url = product.find('h3', class_ = 'snippet-title').find('a')['href']
 		url = "https://www.avito.ru" + url
 		prod_url.append(url) 
-	#return prod_url
+	return prod_url
 	for url in prod_url:
 		check_url(url)
 
-#if __name__ == '__main__':
-#	url = "https://www.avito.ru/moskva/tovary_dlya_kompyutera/komplektuyuschie/videokarty-ASgBAgICAkTGB~pm7gmmZw"
-#	print(get_products_urls(get_html(url)))
+if __name__ == '__main__':
+	url = "https://www.avito.ru/moskva/tovary_dlya_kompyutera/komplektuyuschie/videokarty-ASgBAgICAkTGB~pm7gmmZw"
+	print(get_products_urls(get_html(url)))
 
