@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-import config as cfg
+from learn_project import config as cfg
 
 
 def create_app():

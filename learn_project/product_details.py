@@ -1,11 +1,8 @@
 """Данный модуль собирает информацию со страницы товара и заводит её в словарь"""
 import requests
 from bs4 import BeautifulSoup as bs
+from learn_project.get_html import get_html
 
-
-def get_html(url):
-	r = requests.get(url)
-	return r.text
 
 def get_product_details(html):
 	if not html:

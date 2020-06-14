@@ -1,11 +1,14 @@
 from bs4 import BeautifulSoup as bs
 import re
 import requests
-from url_scraping import get_products_urls
 
 
-def get_html(url, page_number=1):  # Забирает одну страницу
-    params = {'p': page_number}
+def get_html(url, page_number=None):  # Забирает одну страницу
+    if not page_number:
+        params = {}
+    else:
+        page_number = 1
+        params = {'p': page_number}
     try:
         response = requests.get(url, params=params)  # сюда падает текст из ответа на get
         response.raise_for_status()
@@ -26,7 +29,6 @@ def get_all_pages(url):  # Делает итерацию по страницам
     all_pages = []
     max_page = last_page(get_html(url))  # Определает, сколько циклу надо итераций
     for page_number in range(1, max_page):
-        all_pages.append(get_html(url, page_number))  # Добавляет страницу (str) как элемент списка 
+        all_pages.append(get_html(url, page_number))  # Добавляет страницу (str) как элемент списка
     return all_pages
-    for page in all_pages:
-        get_products_urls(page)
+
