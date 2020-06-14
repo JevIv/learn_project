@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup as bs
 import re
 import requests
+import url_scraping
 
 
 def get_html(url, page_number=1):  # Забирает одну страницу
@@ -26,4 +27,5 @@ def get_all_pages(url):  # Делает итерацию по страницам
     max_page = last_page(get_html(url))  # Определает, сколько циклу надо итераций
     for page_number in range(1, max_page):
         all_pages.append(get_html(url, page_number))  # Добавляет страницу (str) как элемент списка 
-    return all_pages
+    #return all_pages
+    url_scraping.get_html(all_pages)
