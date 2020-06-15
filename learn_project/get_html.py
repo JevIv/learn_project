@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup as bs
+from time import sleep
 import re
 import requests
 
@@ -30,6 +31,5 @@ def get_all_pages(url):  # Делает итерацию по страницам
     max_page = last_page(get_html(url))  # Определает, сколько циклу надо итераций
     for page_number in range(1, max_page):
         all_pages.append(get_html(url, page_number))  # Добавляет страницу (str) как элемент списка
+        sleep(5)
     return all_pages
-
-
