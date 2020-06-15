@@ -20,7 +20,7 @@ def get_html(url, page_number=None):  # Забирает одну страниц
 def last_page(text):  # Находит номер последней страницу в категории 
     soup = bs(text, 'html.parser')
     pagination = soup.find_all('span', class_="pagination-item-1WyVp")  # Находит 'кнопки' в разделе pagination
-    digits = re.findall(r'\d{2}', pagination[-2]['data-marker'],)  # Вытаскивает цифры из предпоследней кнопки
+    digits = re.findall(r'\d{2,4}', pagination[-2]['data-marker'],)  # Вытаскивает цифры из предпоследней кнопки
     last_page = int(digits[0])  # Преобрузует цифры в int
     return last_page
 
@@ -31,4 +31,5 @@ def get_all_pages(url):  # Делает итерацию по страницам
     for page_number in range(1, max_page):
         all_pages.append(get_html(url, page_number))  # Добавляет страницу (str) как элемент списка
     return all_pages
+
 

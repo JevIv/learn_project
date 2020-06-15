@@ -16,8 +16,13 @@ def get_products_urls(html):
 		prod_url.append(url)
 	return prod_url
 
+def unfold_list(folded_list):
+	unfolded_list = [url for url_list in folded_list for url in url_list]
+	return unfolded_list
 
-if __name__ == '__main__':
-	url = "https://www.avito.ru/moskva/tovary_dlya_kompyutera/komplektuyuschie/videokarty-ASgBAgICAkTGB~pm7gmmZw"
-	print(get_products_urls(get_html(url)))
+
+
+#if __name__ == '__main__':
+#	url = "https://www.avito.ru/moskva/tovary_dlya_kompyutera/komplektuyuschie/videokarty-ASgBAgICAkTGB~pm7gmmZw"
+#	print(get_products_urls(get_html(url)))
 
