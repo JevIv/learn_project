@@ -18,7 +18,7 @@ def get_product_details(html):
 		text = product.find('div', class_='item-description-html').find('p').text
 	address = product.find('span', class_='item-address__string').text
 	ad_number = product.find('div', class_='item-view-search-info-redesign').find('span').text
-		images_urls = []  # ниже идёт проверка на картинки,
+	images_urls = []  # ниже идёт проверка на картинки,
 	try:			  # сначала проверяет на список приложенных картинок,
 					  # если нету, то забирает главную картинку
 		gallery_list = product.find('ul', class_='gallery-list js-gallery-list')
