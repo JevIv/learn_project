@@ -1,6 +1,5 @@
 """Данный модуль собирает информацию со страницы товара и заводит её в словарь"""
 from bs4 import BeautifulSoup as bs
-from time import sleep
 from learn_project.get_html import get_html
 
 
@@ -44,5 +43,4 @@ def get_product_details(html):
 		'address': address,
 		'ad_number': ad_number,
 		'images_urls': images_urls}
-	sleep(5)
 	return details
