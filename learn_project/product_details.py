@@ -46,8 +46,3 @@ def get_product_details(html):
 		'images_urls': images_urls}
 	sleep(5)
 	return details
-
-
-# if __name__ == '__main__':
-# 	url = "https://www.avito.ru/moskva/tovary_dlya_kompyutera/gigabyte_rx560_2gb_dual_asus_gtx1050_2g_strix_1861086660"
-# 	get_product_details(get_html(url))
