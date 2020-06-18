@@ -2,7 +2,6 @@
 from bs4 import BeautifulSoup as bs
 from time import sleep
 from learn_project.get_html import get_html
-from learn_project.save_to_db import save_products
 
 
 def get_product_details(html):
