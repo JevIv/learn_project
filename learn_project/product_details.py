@@ -11,7 +11,10 @@ def get_product_details(html):
 	name = product.find('span', class_='title-info-title-text').text
 	price = product.find('span', class_='js-item-price').text
 	date = product.find('div', class_='title-info-metadata-item-redesign').text
-	text = product.find('div', class_='item-description-text').text
+	try:
+		text = product.find('div', class_='item-description-text').text
+	except(AttributeError):
+		text = product.find('div', class_='item-description-html').find('p').text
 	address = product.find('span', class_='item-address__string').text
 	ad_number = product.find('div', class_='item-view-search-info-redesign').find('span').text
 	images_urls = []  # ниже идёт проверка на картинки,
@@ -41,8 +44,3 @@ def get_product_details(html):
 		'ad_number': ad_number,
 		'images_urls': images_urls}
 	return details
-
-
-# if __name__ == '__main__':
-# 	url = "https://www.avito.ru/moskva/tovary_dlya_kompyutera/gigabyte_rx560_2gb_dual_asus_gtx1050_2g_strix_1861086660"
-# 	get_product_details(get_html(url))

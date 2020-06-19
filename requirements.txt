@@ -1,18 +1,30 @@
 beautifulsoup4==4.9.1
+<<<<<<< HEAD
 bs4==0.0.1
+=======
+>>>>>>> dc7f625ed7cfc88455eaccf4cdb448cf76081c34
 certifi==2020.4.5.2
 chardet==3.0.4
 click==7.1.2
 fake-headers==1.0.2
 Flask==1.1.2
+<<<<<<< HEAD
 html5lib==1.0.1
+=======
+Flask-SQLAlchemy==2.4.3
+>>>>>>> dc7f625ed7cfc88455eaccf4cdb448cf76081c34
 idna==2.9
 itsdangerous==1.1.0
 Jinja2==2.11.2
 MarkupSafe==1.1.1
 requests==2.23.0
+<<<<<<< HEAD
 six==1.15.0
 soupsieve==2.0.1
+=======
+soupsieve==2.0.1
+SQLAlchemy==1.3.17
+>>>>>>> dc7f625ed7cfc88455eaccf4cdb448cf76081c34
 urllib3==1.25.9
 webencodings==0.5.1
 Werkzeug==1.0.1
