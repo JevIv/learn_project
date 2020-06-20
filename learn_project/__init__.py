@@ -1,6 +1,5 @@
 from flask import Flask, render_template
-from learn_project import config as cfg
-from learn_project.model import db, Products
+from learn_project.model import db
 
 
 def create_app():
@@ -11,4 +10,4 @@ def create_app():
     @app.route('/')  					 # путь, перейдя по котрому запустится app
     def index():  						 # возвращает стартовую страничку
         return render_template('index.html')
-    return app  						 # возвращает экземпляр приложения Flask
+    return app  # возвращает экземпляр приложения Flask

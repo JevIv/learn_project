@@ -105,6 +105,7 @@ venv.bak/
 
 # idea
 .idea/*
+
 test_.py
 .vscode/
 .DS_Store

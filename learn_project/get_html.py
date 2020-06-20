@@ -17,26 +17,29 @@ def get_html(url, page_number=None):  # Забирает одну страниц
         params = {'p': page_number}
 
     try:
-        response = requests.get(url, params=params, proxies=PROXY, headers=header.generate())  # сюда падает текст из ответа на get
-        print(response.raise_for_status())
-        print(response.text)
+        response = requests.get(url, params=params, headers=header.generate())  # сюда падает текст из ответа на get
+        response.raise_for_status()
         sleep(5)
         return response.text
-    except(requests.RequestException, ValueError):
+    except(requests.RequestException, ValueError, AttributeError):
+        raise response.status_code
         return False
 
 
 def last_page(text):  # Находит номер последней страницу в категории
     soup = bs(text, 'html.parser')
     pagination = soup.find_all('span', class_="pagination-item-1WyVp")  # Находит 'кнопки' в разделе pagination
-    digits = re.findall(r'\d{2,4}', pagination[-2]['data-marker'],)  # Вытаскивает цифры из предпоследней кнопки
-    last_page = int(digits[0])  # Преобрузует цифры в int
+    if pagination:
+        digits = re.findall(r'\d{2,4}', pagination[-2]['data-marker'],)  # Вытаскивает цифры из предпоследней кнопки
+        last_page = int(digits[0])  # Преобрузует цифры в int
+    else:
+        last_page = 1
     return last_page
 
 
 def get_all_pages(url):  # Делает итерацию по страницам
     all_pages = []
-    max_page = last_page(get_html(url))  # Определает, сколько циклу надо итераций
+    max_page = last_page(get_html(url)) + 1  # Определает, сколько циклу надо итераций
     for page_number in range(1, max_page):
         all_pages.append(get_html(url, page_number))  # Добавляет страницу (str) как элемент списка
     return all_pages
