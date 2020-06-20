@@ -11,6 +11,10 @@ class Products(db.Model):
     date = db.Column(db.String, nullable=False)
     text = db.Column(db.Text, nullable=False)
     address = db.Column(db.String, nullable=False)
+<<<<<<< HEAD
+=======
+    published = db.Column(db.String, nullable=False)
+>>>>>>> c6eec89d4438f9f33831bc06a7b5c10eb8adf786
     ad_number = db.Column(db.String, unique=True, nullable=False)
     images_urls = db.Column(db.Text, nullable=True)
 

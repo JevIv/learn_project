@@ -109,3 +109,4 @@ venv.bak/
 test_.py
 .vscode/
 .DS_Store
+learn_project.db
