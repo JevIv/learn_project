@@ -43,6 +43,6 @@ def get_product_details(html):
 		'text': text,
 		'address': address,
 		'ad_number': ad_number,
-		'images_urls': images_urls}
+		'images_urls': images_urls}	
 	sleep(10)
 	return details

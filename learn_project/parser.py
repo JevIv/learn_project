@@ -2,7 +2,7 @@ from learn_project.get_html import get_all_pages, get_html
 from learn_project.url_scraping import get_products_urls, unfold_list
 from learn_project.config import TARGET_URL
 from learn_project.product_details import get_product_details
-#from learn_project.save_to_db import save_products
+from learn_project.save_to_db import save_products
 
 
 def parse():
@@ -24,19 +24,9 @@ def parse():
     print(f'total product htmls {len(products_htmls)}')
 
     # принимает список html страниц товаров, возвращает список словарей с инфой о товарах
-    lst_of_product_details = []
     for products_html in products_htmls:
-        get_product_details(products_html)
-        lst_of_product_details.append(get_product_details(products_html))
-    print(f'total detail dicts {len(lst_of_product_details)}')
-    #return lst_of_product_details
-
-    #из списка словарей берет словарь и ключи передаёт в функцию
-    #save_products, которая записывает в базу
-    for product in lst_of_product_details:
-        list_of_keys=product.keys()     #получаем список ключей
-        save_products(','.join(list_of_keys))#преобразовываем список 
-                                            #в строку и передаём в функцию
+        d_dict=get_product_details(products_html)
+        save_products(d_dict)
 
 
 if __name__ == "__main__":
