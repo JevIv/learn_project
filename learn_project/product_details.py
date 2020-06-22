@@ -1,15 +1,17 @@
 """Данный модуль собирает информацию со страницы товара и заводит её в словарь"""
 from bs4 import BeautifulSoup as bs
-from learn_project.get_html import get_html
 
 
 def get_product_details(html):
 	if not html:
 		raise ValueError
 	soup = bs(html, 'html.parser')
-	product = soup.find('div', class_='item-view js-item-view')	 # контейнер с товаром, все поиски ниже ведутся в нём
+	product = soup.find('div', class_='item-view js-item-view')  # контейнер с товаром, все поиски ниже ведутся в нём
 	name = product.find('span', class_='title-info-title-text').text
-	price = product.find('span', class_='js-item-price').text
+	try:
+		price = product.find('span', class_='js-item-price').text
+	except(AttributeError):
+		price = product.find('span', class_='price-value-string js-price-value-string').text
 	date = product.find('div', class_='title-info-metadata-item-redesign').text
 	try:
 		text = product.find('div', class_='item-description-text').text
@@ -19,7 +21,7 @@ def get_product_details(html):
 	ad_number = product.find('div', class_='item-view-search-info-redesign').find('span').text
 	images_urls = []  # ниже идёт проверка на картинки,
 	try:			  # сначала проверяет на список приложенных картинок,
-					  # если нету, то забирает главную картинку
+					# если нету, то забирает главную картинку
 		gallery_list = product.find('ul', class_='gallery-list js-gallery-list')
 		images = gallery_list.findAll('img')
 
@@ -42,5 +44,5 @@ def get_product_details(html):
 		'text': text,
 		'address': address,
 		'ad_number': ad_number,
-		'images_urls': images_urls}
+		'images_urls': str(images_urls)}
 	return details
