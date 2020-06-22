@@ -44,11 +44,5 @@ def get_product_details(html):
 		'text': text,
 		'address': address,
 		'ad_number': ad_number,
-<<<<<<< HEAD
 		'images_urls': str(images_urls)}
 	return details
-=======
-		'images_urls': images_urls}	
-	sleep(10)
-	return details
->>>>>>> c6eec89d4438f9f33831bc06a7b5c10eb8adf786
