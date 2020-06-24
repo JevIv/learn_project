@@ -11,7 +11,7 @@ def create_app():
     def index():  						 # возвращает стартовую страничку
         return render_template('index.html')
 
-    @app.route('/some_ad/<prod_db_id>')
+    @app.route('/ad_page/<prod_db_id>')
     def ad_page(prod_db_id):
         ad_items = Products.query.get(prod_db_id)
         return render_template('ad_page.html', ad_items=ad_items)
