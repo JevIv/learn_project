@@ -14,16 +14,23 @@
     <div class="container">
     <h1>Тут вам не авито</h1>
         <div class="row">
-            <div class="col-12">
-                <h1>Page title</h1>
-                {{ad_items.name}}
-                {{ad_items.price}}
-                {{ad_items.date}}
+            <div class="col-4">
+                <h2>{{ad_items.name}}</h2>
                 {{ad_items.text}}
-                {{ad_items.address}}
-                {{ad_items.ad_number}}
-                {{ad_items.images_urls}}
             </div>
+            <div class="col-4">
+              <h3>{{ad_items.price}} р. </h3>
+              {{ad_items.date}} <br>
+              {{ad_items.ad_number}}
+            </div>
+            <div class="col-4">
+              {{ad_items.images_urls}}  
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            {{ad_items.address}}
+          </div>
         </div>
     </div>
     
