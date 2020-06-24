@@ -2,7 +2,7 @@ from learn_project.model import db, Products
 from learn_project import create_app
 
 
-def save_products(details_list):  #передаём данные в базу
+def save_products(details_list):  # передаём данные в базу
     app = create_app()
     with app.app_context():
         for details in details_list:

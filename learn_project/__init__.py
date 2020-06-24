@@ -14,5 +14,6 @@ def create_app():
     @app.route('/ad_page/<prod_db_id>')
     def ad_page(prod_db_id):
         ad_items = Products.query.get(prod_db_id)
+        print(ad_items)
         return render_template('ad_page.html', ad_items=ad_items)
     return app  # возвращает экземпляр приложения Flask

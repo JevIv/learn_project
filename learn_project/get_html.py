@@ -22,7 +22,7 @@ def get_html(url, page_number=None):  # Забирает одну страниц
         sleep(5)
         return response.text
     except(requests.RequestException, ValueError, AttributeError):
-        raise response.status_code
+        #raise response.status_code
         return False
 
 
