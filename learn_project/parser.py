@@ -1,3 +1,4 @@
+from learn_project import create_app
 from learn_project.get_html import get_all_pages, get_html
 from learn_project.url_scraping import get_products_urls, unfold_list
 from learn_project.config import TARGET_URL
@@ -24,10 +25,11 @@ def parse():
     print(f'total product htmls {len(products_htmls)}')
 
     # принимает список html страниц товаров, пишет результаты парсинга в бд
-    details_list = []
-    for products_html in products_htmls:
-        details_list.append(get_product_details(products_html))
-    save_products(details_list)
+    app = create_app()
+    with app.app_context():
+        for products_html in products_htmls:
+            details = get_product_details(products_html)
+            save_products(*details.values())
 
 
 if __name__ == '__main__':
