@@ -1,5 +1,8 @@
 """Данный модуль собирает информацию со страницы товара и заводит её в словарь"""
 from bs4 import BeautifulSoup as bs
+from datetime import datetime, timedelta
+import locale
+import re
 
 
 def get_product_details(html):
@@ -46,3 +49,28 @@ def get_product_details(html):
 		'ad_number': ad_number,
 		'images_urls': str(images_urls)}
 	return details
+
+
+def parse_date(date: str) -> datetime:
+	locale.setlocale(locale.LC_ALL, "ru_RU")
+    relative_day = re.findall(r'Сегодня|Вчера', date)
+
+    if relative_day:
+        date_starts_with = date[0:5]
+        if date_starts_with == 'Вчера':
+            delta = timedelta(days=1)
+        if date_starts_with == 'Сегод':
+            delta = timedelta(days=0)
+        day = datetime.today().date() - delta
+        day = str(day)
+        time = re.findall(r'\d{1,2}[:-]\d{2}', date)
+        time = time[0]
+        right_date = f'{day} {time}'
+        right_date = datetime.strptime(right_date, '%Y-%m-%d %H:%M')        
+        return(right_date)
+
+    else:
+        year = datetime.today().year
+        date = f'{year},{date}'
+        right_date = datetime.strptime(date, '%Y,%d %B в %H:%M')
+        return(right_date)
