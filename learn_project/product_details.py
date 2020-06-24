@@ -16,6 +16,7 @@ def get_product_details(html):
 	except(AttributeError):
 		price = product.find('span', class_='price-value-string js-price-value-string').text
 	date = product.find('div', class_='title-info-metadata-item-redesign').text
+	date = parse_date(date)
 	try:
 		text = product.find('div', class_='item-description-text').text
 	except(AttributeError):
@@ -66,11 +67,17 @@ def parse_date(date: str) -> datetime:
         time = re.findall(r'\d{1,2}[:-]\d{2}', date)
         time = time[0]
         right_date = f'{day} {time}'
-        right_date = datetime.strptime(right_date, '%Y-%m-%d %H:%M')        
+		try:
+			right_date = datetime.strptime(right_date, '%Y-%m-%d %H:%M')        
+		except(ValueError):
+			right_date = datetime.now()
         return(right_date)
 
     else:
         year = datetime.today().year
         date = f'{year},{date}'
-        right_date = datetime.strptime(date, '%Y,%d %B в %H:%M')
+		try:
+			right_date = datetime.strptime(date, '%Y,%d %B в %H:%M')
+		except(ValueError):
+			right_date = datetime.now()
         return(right_date)
