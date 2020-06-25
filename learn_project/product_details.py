@@ -19,7 +19,7 @@ def get_product_details(html):
 		text = product.find('div', class_='item-description-html').find('p').text
 	address = product.find('span', class_='item-address__string').text
 	ad_number = product.find('div', class_='item-view-search-info-redesign').find('span').text
-	images_urls = []  # ниже идёт проверка на картинки,
+	images_url_list = []  # ниже идёт проверка на картинки,
 	try:			  # сначала проверяет на список приложенных картинок,
 					# если нету, то забирает главную картинку
 		gallery_list = product.find('ul', class_='gallery-list js-gallery-list')
@@ -27,7 +27,7 @@ def get_product_details(html):
 
 		for image in images:
 			urls = image['src']
-			images_urls.append(urls)
+			images_url_list.append(urls)
 
 	except(AttributeError):
 		main_image = product.find('div', class_='item-view-gallery item-view-gallery_type-one-img')
@@ -35,7 +35,7 @@ def get_product_details(html):
 
 		for image in images:
 			urls = image['src']
-			images_urls.append(urls)
+			images_url_list.append(urls)
 
 	details = {			# словарь в который собираются данные
 		'name': name,
@@ -44,5 +44,5 @@ def get_product_details(html):
 		'text': text,
 		'address': address,
 		'ad_number': ad_number,
-		'images_urls': str(images_urls)}
+		'images_url_list': images_url_list}
 	return details

@@ -24,7 +24,9 @@
               {{ad_items.ad_number}}
             </div>
             <div class="col-4">
-              {{ad_items.images_urls}}  
+              {% for url in image_urls %}
+              <img src="{{url}}"><hr/>
+              {% endfor %}
             </div>
         </div>
         <div class="row">
