@@ -1,29 +1,20 @@
-from learn_project.model import db, Products
-from learn_project.__init__ import create_app
+from learn_project.model import db, Products, Images
+from learn_project import create_app
 
 
-<<<<<<< HEAD
-def save_products(details_list):  #передаём данные в базу
-    app = create_app()
-    with app.app_context():
-        for details in details_list:
-            products_exists = Products.query.filter(Products.ad_number == details['ad_number']).count()  # проверка на дубликаты по номеру обьявления
-            print(products_exists)
-            if not products_exists:
-                all_products = Products(name=details['name'],
-                                        price=details['price'],
-                                        date=details['date'],
-                                        text=details['text'],
-                                        address=details['address'],
-                                        ad_number=details['ad_number'],
-                                        images_urls=details['images_urls'])
-                db.session.add(all_products)  # кладем в сессию базы
-                db.session.commit()  # сохранение новости в базу
-=======
-def save_products(d_dict):   #передаём данные в базу
-    #products_exists = Products.query.filter(Products.ad_number == d_dict['ad_number']) 		#проверка на дубликаты по номеру обьявления
-    #if not products_exists:
-    all_products = Products(name=d_dict['name'], text=d_dict['text'], price=d_dict['price'], address=d_dict['address'], published=d_dict['date'], ad_number=d_dict['ad_number'], images_urls=d_dict['images_urls'])
-    db.session.add(all_products)           										#кладем в сессию базы
-    db.session.commit()                											#сохранение новости в базу
->>>>>>> c6eec89d4438f9f33831bc06a7b5c10eb8adf786
+def save_products(name, price, date, text, address, ad_number, images_url_list):  #передаём данные в базу
+    products_exists = Products.query.filter(Products.ad_number == ad_number).count()  # проверка на дубликаты по номеру обьявления
+    if not products_exists:
+        all_products = Products(name=name,
+                                price=price,
+                                date=date,
+                                text=text,
+                                address=address,
+                                ad_number=ad_number)
+        db.session.add(all_products)  # кладем в сессию базы
+        db.session.flush()            # добавляет данные в экземпляр таблицы, который без коммита пока лежит в приложении
+                                      # благодаря этому мы можем на лету вытащить all_products.id (см. ниже)
+        for url in images_url_list:
+            add_url = Images(img_url=url, product_id=all_products.id)
+            db.session.add(add_url)
+        db.session.commit()  # сохранение всё в базу
