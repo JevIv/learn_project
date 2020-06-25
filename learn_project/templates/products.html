@@ -17,9 +17,9 @@
         <div class="col-8">
 
               <h2>Товары</h2>
-              {% for produt in news_list %}
+              {% for product in products_list %}
               <h3><a href='{{ product.url }}'>{{ product.name }}</a></h3>
-              <p>{{ product.date.strftime('%d.%m.%Y') }}</p>
+              <p>{{ product.date }}</p>
               <p>{{ product.price }}</p>
               <hr/>
               {% endfor %}
