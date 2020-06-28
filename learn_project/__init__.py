@@ -4,7 +4,7 @@
 from flask import Flask, render_template, flash, redirect, request, url_for
 from flask_login import LoginManager, current_user, login_required, login_user, logout_user
 from learn_project.model import db, Users, Products, Images
-from learn_project.forms import LoginForm, RegistrationForm, Email, EqualTo, ValidationError
+from learn_project.forms import LoginForm, RegistrationForm, Email, EqualTo
 from flask_migrate import Migrate
 
 
@@ -92,7 +92,7 @@ def create_app():
         return redirect(url_for('index'))
 
 
-    @blueprint.route('/register')
+    @app.route('/register')
     def register():
         if current_user.is_authenticated:
             return redirect(url_for('news.index'))
