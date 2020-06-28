@@ -120,6 +120,5 @@ def create_app():
                     ))
             return redirect(url_for('user.register'))
             flash('Пожалуйста, исправьте ошибки в форме')
-    return redirect(url_for('user.register'))
 
     return app  # возвращает экземпляр приложения Flask
