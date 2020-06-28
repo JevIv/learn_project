@@ -1,23 +1,18 @@
-<<<<<<< HEAD
-
-from flask import Flask, render_template, request, url_for
-
 #запуск сервера
 #set FLASK_APP=webapp && set FLASK_ENV=development && 
 #set FLASK_DEBUG=1 && flask run
-from learn_project.model import db, Products, Images
-=======
-from flask import Flask, render_template, flash, redirect, url_for
+from flask import Flask, render_template, flash, redirect, request, url_for
 from flask_login import LoginManager, current_user, login_required, login_user, logout_user
-from learn_project.model import db, Users
-from learn_project.forms import LoginForm
->>>>>>> a9ea3abc864face1ff46aba0c3c8ee0a258858f7
+from learn_project.model import db, Users, Products, Images
+from learn_project.forms import LoginForm, RegistrationForm, Email, EqualTo, ValidationError
+from flask_migrate import Migrate
 
 
 def create_app():
     app = Flask(__name__)  				 # создает экземпляр Flask в переменной app
     app.config.from_pyfile('config.py')  # задает файл конфигурационный файл
     db.init_app(app)					 # привязывает базу к приложению
+    migrate = Migrate(app, db)
 
     login_manager = LoginManager()
     login_manager.init_app(app)
@@ -31,7 +26,6 @@ def create_app():
     def index():  						 # возвращает стартовую страничку
         return render_template('index.html')
 
-<<<<<<< HEAD
     @app.route('/products')
     def products():
         
@@ -59,8 +53,6 @@ def create_app():
         image_urls = [image_url.img_url for image_url in image_urls]      # вытаскиваем из этих объектов ссылки и кладём в список
         return render_template('ad_page.html', ad_items=ad_items, image_urls=image_urls)
 
-    return app  # возвращает экземпляр приложения Flask
-=======
     @app.route('/login')
     def login():
         if current_user.is_authenticated:
@@ -99,5 +91,35 @@ def create_app():
         flash('bb gl hf')
         return redirect(url_for('index'))
 
+
+    @blueprint.route('/register')
+    def register():
+        if current_user.is_authenticated:
+            return redirect(url_for('news.index'))
+        form = RegistrationForm()
+        title = "Регистрация"
+        return render_template('user/registration.html', page_title=title, form=form)
+
+
+    @app.route('/process-reg', methods=['POST'])
+    def process_reg():
+        form = RegistrationForm()
+        if form.validate_on_submit():
+            new_user = User(username=form.username.data, email=form.email.data, role='user')
+            new_user.set_password(form.password.data)
+            db.session.add(new_user)
+            db.session.commit()
+            flash('Вы успешно зарегистрировались!')
+            return redirect(url_for('user.login'))
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    flash('Ошибка в поле "{}": - {}'.format(
+                        getattr(form, field).label.text,
+                        error
+                    ))
+            return redirect(url_for('user.register'))
+            flash('Пожалуйста, исправьте ошибки в форме')
+    return redirect(url_for('user.register'))
+
     return app  # возвращает экземпляр приложения Flask
->>>>>>> a9ea3abc864face1ff46aba0c3c8ee0a258858f7
