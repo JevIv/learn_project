@@ -24,7 +24,7 @@
                 </div>
                 {% endif %}
               {% endwith %}
-              <form action="{{ url_for('login_process') }}" method="POST">
+              <form action="{{ url_for('user.login_process') }}" method="POST">
                 {{ form.hidden_tag() }}
                 <div class="form-group">
                   {{ form.username.label }}
