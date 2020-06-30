@@ -1,9 +1,4 @@
-
 from flask import Flask, render_template, request, url_for
-
-#запуск сервера
-#set FLASK_APP=webapp && set FLASK_ENV=development && 
-#set FLASK_DEBUG=1 && flask run
 from learn_project.model import db, Products, Images
 
 
@@ -35,6 +30,7 @@ def create_app():
                                 products_list=products_list.items,
                                 next_url=next_url, 
                                 prev_url=prev_url)
+
 
     @app.route('/ad_page/<prod_db_id>')
     def ad_page(prod_db_id):
