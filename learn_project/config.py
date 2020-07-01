@@ -9,3 +9,4 @@ TARGET_URL = 'https://www.avito.ru/novosibirsk/drugie_zhivotnye/horki-ASgBAgICAU
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, '..', 'learn_project.db')
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 SECRET_KEY = 'f6a205862b971721d3b1aaf0499be1262c2db7ab'
+ITEMS_PER_PAGE = 5
