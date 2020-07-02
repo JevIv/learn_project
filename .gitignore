@@ -106,13 +106,7 @@ venv.bak/
 # idea
 .idea/*
 
-<<<<<<< HEAD
-test_.py
-.vscode/
-.DS_Store
-=======
 .DS_Store
 .vscode/
 learn_project/test_.py
->>>>>>> b3e42b61181005a11a87fee3daa96b2b342c766b
 learn_project.db
