@@ -25,7 +25,7 @@ def create_app():
 
     @app.route('/')  					 # путь, перейдя по котрому запустится app
     def index():  						 # возвращает стартовую страничку
-        return render_template('index.html')
+        return render_template('adverts/index.html', page_title='Тут вам не авито!')
 
     @app.route('/admin')
     @login_required
@@ -49,7 +49,7 @@ def create_app():
         next_url = url_for('products', page=products_list.next_num) \
             if products_list.has_next else None
 
-        return render_template('products.html',
+        return render_template('adverts/products.html',
                                 page_title=title,
                                 products_list=products_list.items,
                                 next_url=next_url,
@@ -60,6 +60,6 @@ def create_app():
         ad_items = Products.query.get(prod_db_id)
         image_urls = Images.query.filter_by(product_id=prod_db_id).all()  # возвращает список объектов класса
         image_urls = [image_url.img_url for image_url in image_urls]      # вытаскиваем из этих объектов ссылки и кладём в список
-        return render_template('ad_page.html', ad_items=ad_items, image_urls=image_urls)
+        return render_template('adverts/ad_page.html', ad_items=ad_items, image_urls=image_urls)
 
     return app  # возвращает экземпляр приложения Flask
