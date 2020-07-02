@@ -1,6 +1,8 @@
 from getpass import getpass
 from learn_project import create_app
-from learn_project.model import db, Users
+from learn_project.model import db
+from learn_project.user.model import Users
+
 import sys
 
 app = create_app()
@@ -17,7 +19,7 @@ with app.app_context():
         print('пароли не совпадают')
         sys.exit(0)
 
-    new_user = Users(username=username, role = 'admin')
+    new_user = Users(username=username, role='admin')
     new_user.set_password(password_1)
 
     db.session.add(new_user)
