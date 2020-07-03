@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+  <div class="col-8">
+    <div class="card mt-4">
+      <div class="card-body">
+        <h3 class="card-title">{{ad_items.name}}</h3>
+        <h4>{{ad_items.price}} р. </h4>
+        <p class="card-text">{{ad_items.text}}</p>
+        <small class="text-muted">{{ad_items.date}}</small>
+      </div>
+    </div>
+  </div>
+  <div class="col-4"> 
+    <div class="card mt-4">
+      <div class="card-body">
+        {% for url in image_urls %}
+        <img src="{{url}}" width="100" height="75">
+        {% endfor %}
+    </div>
+    </div>
+  </div>
+</div>
+<div class="card card-outline-secondary my-4">
+  <div class="card-header">
+    {{ad_items.ad_number}}
+  </div>
+  <div class="card-body">
+    <p>{{ad_items.address}}</p>
+  </div>
+</div>
+{% endblock %}
