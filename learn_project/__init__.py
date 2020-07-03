@@ -2,7 +2,7 @@
 #set FLASK_APP=webapp && set FLASK_ENV=development && 
 #set FLASK_DEBUG=1 && flask run
 from flask import Flask, render_template, request, url_for
-from flask_login import LoginManager, current_user, login_required
+from flask_login import LoginManager, current_user
 from learn_project.model import db, Products, Images
 from learn_project.user.model import Users
 from learn_project.user.views import blueprint as user_blueprint
@@ -26,14 +26,6 @@ def create_app():
     @app.route('/')  					 # путь, перейдя по котрому запустится app
     def index():  						 # возвращает стартовую страничку
         return render_template('adverts/index.html', page_title='Тут вам не авито!')
-
-    @app.route('/admin')
-    @login_required
-    def admin_index():
-        if current_user.is_admin:
-            return 'Поздравляю! Вы админ.'
-        else:
-            return 'Вы не админ.'
 
     @app.route('/products')
     def products():
