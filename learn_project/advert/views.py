@@ -31,9 +31,11 @@ def products():
 @blueprint.route('/ad_page/<prod_db_id>')
 def ad_page(prod_db_id):
     ad_items = Products.query.get(prod_db_id)
+    date = ad_items.date.strftime('%d.%m.%Y %H:%M')
     image_urls = Images.query.filter_by(product_id=prod_db_id).all()  # возвращает список объектов класса
     image_urls = [image_url.img_url for image_url in image_urls]      # вытаскиваем из этих объектов ссылки и кладём в список
-    return render_template('advert/ad_page.html', ad_items=ad_items, image_urls=image_urls)
+    return render_template('advert/ad_page.html', ad_items=ad_items,
+                            date=date, image_urls=image_urls)
 
 
 @blueprint.route('/new_ad')
@@ -57,7 +59,7 @@ def new_ad_process():
         date        = Products.default_date()
         text        = form.text.data
         address     = form.address.data
-        ad_number   = date.strftime('%d.%m.%Y %H:%M:%S')
+        ad_number   = Products.generate_ad_number()
         user_id     = current_user.id
 
         new_ad = Products(name=name, price=price, date=date, text=text,

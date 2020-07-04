@@ -1,5 +1,6 @@
 from learn_project.model import db
 from datetime import datetime as dt
+import uuid
 
 
 class Products(db.Model):
@@ -17,6 +18,9 @@ class Products(db.Model):
 
     def default_date():
         return dt.now()
+
+    def generate_ad_number():
+        return uuid.uuid4().time_low
 
 
 class Images(db.Model):
