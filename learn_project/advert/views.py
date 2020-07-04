@@ -22,10 +22,10 @@ def products():
         if products_list.has_next else None
 
     return render_template('advert/products.html',
-                            page_title=title,
-                            products_list=products_list.items,
-                            next_url=next_url,
-                            prev_url=prev_url)
+                           page_title=title,
+                           products_list=products_list.items,
+                           next_url=next_url,
+                           prev_url=prev_url)
 
 
 @blueprint.route('/ad_page/<prod_db_id>')
@@ -34,6 +34,7 @@ def ad_page(prod_db_id):
     image_urls = Images.query.filter_by(product_id=prod_db_id).all()  # возвращает список объектов класса
     image_urls = [image_url.img_url for image_url in image_urls]      # вытаскиваем из этих объектов ссылки и кладём в список
     return render_template('advert/ad_page.html', ad_items=ad_items, image_urls=image_urls)
+
 
 @blueprint.route('/new_ad')
 def new_ad():
@@ -45,19 +46,29 @@ def new_ad():
         flash('авторизуйтесь')
         return redirect(url_for('user.login'))
 
+
 @blueprint.route('/new_ad-process', methods=['POST'])
 def new_ad_process():
     form = NewAdForm()
     if form.validate_on_submit():
 
-        price = str(form.price.data)
-        date = Products.default_date()
+        name        = form.name.data
+        price       = str(form.price.data)
+        date        = Products.default_date()
+        text        = form.text.data
+        address     = form.address.data
+        ad_number   = date.strftime('%d.%m.%Y %H:%M:%S')
+        user_id     = current_user.id
 
-        #new_ad = Products(name=form.name.data, price=price, date=date)
-        #db.session.add(new_ad)
-        #db.session.commit()
-        flash(f'Ваше объявление принято {price} {date} {form.name.data}')
+        new_ad = Products(name=name, price=price, date=date, text=text,
+                          address=address, ad_number=ad_number,
+                          created_by=user_id)
+
+        db.session.add(new_ad)
+        db.session.commit()
+        flash('Ваше объявление принято!')
         return redirect(url_for('index'))
+
     else:
         for field, errors in form.errors.items():
             for error in errors:
