@@ -1,21 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form>
+<form action="{{ url_for('advert.new_ad_process') }}" method="POST">
+  {{ form.hidden_tag() }}
   <div class="form-group col-md-6">
-    <label for="exampleFormControlInput1">Название объявления</label>
-    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Гараж">
+    {{ form.name.label }}
+    {{ form.name() }}
   </div>
 
   <div class="form-group col-md-8">
-    <label for="exampleFormControlTextarea1">Описание объявления</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Продам гараж" rows="3"></textarea>
+    {{ form.text.label }}
+    {{ form.text() }}
   </div>
 
   <div class="form-group col-md-2">
-    <label for="exampleFormControlInput1">Цена</label>
+    {{ form.price.label }}
     <div class="input-group">
-      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="100">
+      {{ form.price() }}
       <div class="input-group-append">
         <span class="input-group-text">Р</span>
       </div>
@@ -23,17 +24,17 @@
   </div>
 
   <div class="form-group col-md-4">
-    <label for="exampleFormControlFile1">Фотографии</label>
-    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+    {{ form.image.label }}
+    <input type="file" class="form-control-file">
   </div>
 
   <div class="form-group col-md-6">
-    <label for="exampleFormControlInput1">Место сделки</label>
-    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="г.Воронеж, ул.Ленина, д.42">
+    {{ form.address.label }}
+    {{ form.address() }}
   </div> 
   
   <div class="col-4">
-    <button type="submit" class="btn btn-primary">Продолжить</button>
+    {{ form.submit() }}
   </div>
 
 </form>

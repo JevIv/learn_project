@@ -1,7 +1,8 @@
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import current_user
-from learn_project import config
+from learn_project import config, db
 from learn_project.advert.model import Products, Images
+from learn_project.advert.forms import NewAdForm
 
 blueprint = Blueprint('advert', __name__, url_prefix='/adverts')
 
@@ -37,8 +38,32 @@ def ad_page(prod_db_id):
 @blueprint.route('/new_ad')
 def new_ad():
     if current_user.is_authenticated:
+        form = NewAdForm()
         title = 'Новое объявление'
-        return render_template('advert/new_ad.html', page_title=title)
+        return render_template('advert/new_ad.html', page_title=title, form=form)
     else:
         flash('авторизуйтесь')
         return redirect(url_for('user.login'))
+
+@blueprint.route('/new_ad-process', methods=['POST'])
+def new_ad_process():
+    form = NewAdForm()
+    if form.validate_on_submit():
+
+        price = str(form.price.data)
+        date = Products.default_date()
+
+        #new_ad = Products(name=form.name.data, price=price, date=date)
+        #db.session.add(new_ad)
+        #db.session.commit()
+        flash(f'Ваше объявление принято {price} {date} {form.name.data}')
+        return redirect(url_for('index'))
+    else:
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash('Ошибка в поле "{}": - {}'.format(
+                    getattr(form, field).label.text,
+                    error
+                ))
+        flash('Где-то ошибка')
+        return redirect(url_for('index'))

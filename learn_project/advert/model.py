@@ -1,4 +1,5 @@
 from learn_project.model import db
+from datetime import datetime as dt
 
 
 class Products(db.Model):
@@ -12,6 +13,9 @@ class Products(db.Model):
 
     def __repr__(self):
         return '<Products {} {}>'.format(self.id, self.name)
+
+    def default_date():
+        return dt.now()
 
 
 class Images(db.Model):
