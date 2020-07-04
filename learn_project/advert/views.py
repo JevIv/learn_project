@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, request, url_for
+from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask_login import current_user
 from learn_project import config
 from learn_project.advert.model import Products, Images
 
@@ -32,3 +33,12 @@ def ad_page(prod_db_id):
     image_urls = Images.query.filter_by(product_id=prod_db_id).all()  # возвращает список объектов класса
     image_urls = [image_url.img_url for image_url in image_urls]      # вытаскиваем из этих объектов ссылки и кладём в список
     return render_template('advert/ad_page.html', ad_items=ad_items, image_urls=image_urls)
+
+@blueprint.route('/new_ad')
+def new_ad():
+    if current_user.is_authenticated:
+        title = 'Новое объявление'
+        return render_template('advert/new_ad.html', page_title=title)
+    else:
+        flash('авторизуйтесь')
+        return redirect(url_for('user.login'))
