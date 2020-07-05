@@ -1,11 +1,21 @@
 from flask import Blueprint, render_template, flash, redirect, url_for
-from flask_login import current_user, login_user, logout_user
+from flask_login import current_user, login_user, logout_user, login_required
 from learn_project.model import db
-from learn_project.user.forms import LoginForm, RegistrationForm, Email, EqualTo
+from learn_project.user.forms import LoginForm, RegistrationForm
 from learn_project.user.model import Users
 
 blueprint = Blueprint('user', __name__, url_prefix='/users')
 
+
+@blueprint.route('/admin')
+@login_required
+def admin_index():
+    title = 'Админка'
+    if current_user.is_admin:
+        return render_template('user/admin_page.html', page_title=title)
+    else:
+        flash('вы не админ')
+        return redirect(url_for('index'))
 
 @blueprint.route('/login')
 def login():
@@ -13,7 +23,7 @@ def login():
         return redirect(url_for('index'))
     title = 'Авторизация'
     login_form = LoginForm()
-    return render_template('login.html', page_title=title, form=login_form)
+    return render_template('user/login.html', page_title=title, form=login_form)
 
 
 @blueprint.route('/login-process', methods=['POST'])
@@ -45,7 +55,7 @@ def register():
         return redirect(url_for('index'))
     form = RegistrationForm()
     title = "Регистрация"
-    return render_template('registration.html', page_title=title, form=form)
+    return render_template('user/registration.html', page_title=title, form=form)
 
 
 @blueprint.route('/process-reg', methods=['POST'])

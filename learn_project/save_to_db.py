@@ -1,5 +1,5 @@
-from learn_project.model import db, Products, Images
-from learn_project import create_app
+from learn_project.model import db
+from learn_project.advert.model import Products, Images
 
 
 def save_products(name, price, date, text, address, ad_number, images_url_list):  #передаём данные в базу
