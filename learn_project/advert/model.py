@@ -22,6 +22,11 @@ class Products(db.Model):
     def generate_ad_number():
         return uuid.uuid4().time_low
 
+    def generate_filename(filename):
+        extension = filename.split('.')[-1]
+        new_filename = str(uuid.uuid4().time_low) + '.' + extension
+        return new_filename
+
 
 class Images(db.Model):
     id = db.Column(db.Integer, primary_key=True)

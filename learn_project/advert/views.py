@@ -3,6 +3,7 @@ from flask_login import current_user
 from learn_project import config, db
 from learn_project.advert.model import Products, Images
 from learn_project.advert.forms import NewAdForm
+from learn_project.save_to_db import save_products as save_new_ad
 
 blueprint = Blueprint('advert', __name__, url_prefix='/adverts')
 
@@ -49,7 +50,7 @@ def new_ad():
         return redirect(url_for('user.login'))
 
 
-@blueprint.route('/new_ad-process', methods=['POST'])
+@blueprint.route('/new_ad-process', methods=['GET', 'POST'])
 def new_ad_process():
     form = NewAdForm()
     if form.validate_on_submit():
@@ -61,13 +62,13 @@ def new_ad_process():
         address     = form.address.data
         ad_number   = Products.generate_ad_number()
         user_id     = current_user.id
+        filename    = form.image.data.filename
+        filename    = Products.generate_filename(filename)
+        file_path   = config.IMAGES_DIR + filename
+        file_urls   = [config.IMAGE_URL + filename]  # Это костыль т.к. функция сохранения принимает на вход список
 
-        new_ad = Products(name=name, price=price, date=date, text=text,
-                          address=address, ad_number=ad_number,
-                          created_by=user_id)
-
-        db.session.add(new_ad)
-        db.session.commit()
+        form.image.data.save(file_path)  # Да, пока умеем сохранять только один файл
+        save_new_ad(name, price, date, text, address, ad_number, file_urls, user_id)
         flash('Ваше объявление принято!')
         return redirect(url_for('index'))
 

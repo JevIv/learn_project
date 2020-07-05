@@ -3,6 +3,12 @@ from wtforms import FileField, IntegerField, StringField
 from wtforms import SubmitField, TextAreaField
 from wtforms.validators import DataRequired
 
+"""
+    Этот класс:
+    1. передаёт в шаблон всякие параметры и названия полей
+    2. запоминает ввод пользователя и передаёт его в processing
+"""
+
 
 class NewAdForm(FlaskForm):
     name = StringField('Название объявления',
