@@ -33,6 +33,16 @@
         </div>
         </div>
       </div>
+      {% if products.comments %}
+        {% if products.comments.count() > 0 %}
+          <h2>Comments</h2>
+          <p>
+          {% for comment in products.comments %}
+            <p>{{ comment.body }}</p>
+          {% endfor %}
+          </p>
+        {% endif %}
+      {% endif %}
     </div>
     <div class="card card-outline-secondary my-4">
       <div class="card-header">

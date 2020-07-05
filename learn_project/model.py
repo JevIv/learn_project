@@ -12,6 +12,10 @@ class Products(db.Model):
     text = db.Column(db.Text, nullable=False)
     address = db.Column(db.String, nullable=False)
     ad_number = db.Column(db.String, unique=True, nullable=False)
+    comments = db.relationship('Comments', backref='title', lazy='dynamic')
+
+    def get_comments(self):
+        return Comments.query.filter_by(product_id=products.id).order_by(Comments.date.desc())
 
     def __repr__(self):
         return '<Products {} {}>'.format(self.id, self.name)
@@ -24,3 +28,12 @@ class Images(db.Model):
 
     def __repr__(self):
         return '<Images {} {}>'.format(self.id, self.product_id)
+
+class Comments(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    body = db.Column(db.String(280))
+    date = db.Column(db.DateTime)
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
+
+    def __repr__(self):
+        return '<Comments {}>'.format(self.body)
