@@ -81,3 +81,13 @@ def new_ad_process():
                 ))
         flash('Где-то ошибка')
         return redirect(url_for('index'))
+
+
+@blueprint.route('/own_ads')
+def own_ads():
+    title = 'Мои объявления'
+    ad_list = Products.query.filter_by(created_by=current_user.id)
+    ad_list = ad_list.order_by(Products.date.desc())
+    return render_template('/advert/products.html',
+                            page_title=title,
+                            products_list=ad_list)
