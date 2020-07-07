@@ -33,16 +33,25 @@
         </div>
         </div>
       </div>
-      {% if products.comments %}
-        {% if products.comments.count() > 0 %}
-          <h2>Comments</h2>
-          <p>
-          {% for comment in products.comments %}
+      <h2>Коментарии</h2>
+      {% if product.comments %}
+        {% for comment in product.comments %}
             <p>{{ comment.body }}</p>
-          {% endfor %}
-          </p>
-        {% endif %}
+            <p>
+              <strong>{{ comment.author }}</strong> 
+              <small>on {{ comment.created_at.strftime('%H:%M %Y-%m-%d') }}</small>
+            </p>
+          {{ comment.text }}
+        {% endfor %}
       {% endif %}
+      <form action="{{ url_for('comments.comment_post') }}" method="POST">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+          {{ form.comment.label }}
+          {{ form.body() }}
+        </div>
+        {{ form.submit() }}
+      </form>
     </div>
     <div class="card card-outline-secondary my-4">
       <div class="card-header">
