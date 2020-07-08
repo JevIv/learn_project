@@ -32,4 +32,13 @@
     <p>{{ad_items.address}}</p>
   </div>
 </div>
+
+{% if owner %}
+<div class="col-6">
+  <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Редактировать</a>
+  <a href="{{ url_for('advert.hide', ad_id=ad_items.id) }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Скрыть</a>
+  <a href="{{ url_for('advert.sold', ad_id=ad_items.id) }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Продано</a>
+</div>
+{% endif %}
+
 {% endblock %}

@@ -35,8 +35,9 @@ def ad_page(prod_db_id):
     date = ad_items.date.strftime('%d.%m.%Y %H:%M')
     image_urls = Images.query.filter_by(product_id=prod_db_id).all()  # возвращает список объектов класса
     image_urls = [image_url.img_url for image_url in image_urls]      # вытаскиваем из этих объектов ссылки и кладём в список
+    owner = True if ad_items.created_by == current_user.id else False
     return render_template('advert/ad_page.html', ad_items=ad_items,
-                            date=date, image_urls=image_urls)
+                            date=date, image_urls=image_urls, owner=owner)
 
 
 @blueprint.route('/new_ad')
@@ -91,3 +92,29 @@ def own_ads():
     return render_template('/advert/products.html',
                             page_title=title,
                             products_list=ad_list)
+
+
+@blueprint.route('/hide/<ad_id>')
+def hide(ad_id):
+    ad_to_hide = Products.query.get(ad_id)
+    if ad_to_hide.created_by == current_user.id:
+        ad_to_hide.status = 'hiden'
+        db.session.add(ad_to_hide)
+        db.session.commit()
+        return redirect(url_for('advert.own_ads'))
+    else:
+        flash('Это не ваше объясвление')
+        return redirect(url_for('index'))
+
+
+@blueprint.route('/sold/<ad_id>')
+def sold(ad_id):
+    ad_to_close = Products.query.get(ad_id)
+    if ad_to_close.created_by == current_user.id:
+        ad_to_close.status = 'sold'
+        db.session.add(ad_to_close)
+        db.session.commit()
+        return redirect(url_for('advert.own_ads'))
+    else:
+        flash('Это не ваше объясвление')
+        return redirect(url_for('index'))

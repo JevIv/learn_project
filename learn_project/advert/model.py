@@ -12,6 +12,7 @@ class Products(db.Model):
     address = db.Column(db.String, nullable=False)
     ad_number = db.Column(db.String, unique=True, nullable=False)
     created_by = db.Column(db.Integer, db.ForeignKey('users.id'))
+    status = db.Column(db.String, nullable=True)
 
     def __repr__(self):
         return '<Products {} {}>'.format(self.id, self.name)
