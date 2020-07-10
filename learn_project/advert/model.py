@@ -20,7 +20,7 @@ class Products(db.Model):
     def default_date():
         return dt.now()
 
-    def pretty_date(self):
+    def pretty_date(self):  # Эта штука принимает на вход экземпляр класса и возвращает дату в красивом виде
         date = self.date.strftime('%d.%m.%Y %H:%M')
         return date
 

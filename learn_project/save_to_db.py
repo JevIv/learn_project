@@ -44,10 +44,13 @@ def save_new_ad(form, user_id):
     address     = form.address.data
     ad_number   = Products.generate_ad_number()
     filename    = form.image.data.filename
-    filename    = Products.generate_filename(filename)
-    file_path   = config.IMAGES_DIR + filename
-    file_urls   = [config.IMAGE_URL + filename]  # Это костыль т.к. функция сохранения принимает на вход список
-    form.image.data.save(file_path)              # Да, пока умеем сохранять только один файл
+    if filename:  # Чтобы не генерить ссылки когда нет фотки
+        filename    = Products.generate_filename(filename)
+        file_path   = config.IMAGES_DIR + filename
+        file_urls   = [config.IMAGE_URL + filename]  # Это костыль т.к. функция сохранения принимает на вход список
+        form.image.data.save(file_path)              # Да, пока умеем сохранять только один файл
+    else:
+        file_urls = []
     save_products(name, price, date, text, address, ad_number, file_urls, user_id)
 
 
@@ -58,7 +61,7 @@ def save_edit(form):
     text        = form.text.data
     address     = form.address.data
     filename    = form.image.data.filename
-    if filename:
+    if filename:  # Чтобы не генерить ссылки когда нет фотки
         filename    = Products.generate_filename(filename)
         file_path   = config.IMAGES_DIR + filename
         file_urls   = config.IMAGE_URL + filename
