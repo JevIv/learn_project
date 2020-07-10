@@ -20,6 +20,10 @@ class Products(db.Model):
     def default_date():
         return dt.now()
 
+    def pretty_date(self):
+        date = self.date.strftime('%d.%m.%Y %H:%M')
+        return date
+
     def generate_ad_number():
         return uuid.uuid4().time_low
 
