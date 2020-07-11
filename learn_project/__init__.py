@@ -7,6 +7,7 @@ from learn_project.model import db
 from learn_project.user.model import Users
 from learn_project.user.views import blueprint as user_blueprint
 from learn_project.advert.views import blueprint as advert_blueprint
+from learn_project.search.views import blueprint as search_blueprint
 from flask_migrate import Migrate
 
 
@@ -19,6 +20,7 @@ def create_app():
     login_manager.login_view = 'user.login'
     app.register_blueprint(user_blueprint)
     app.register_blueprint(advert_blueprint)
+    app.register_blueprint(search_blueprint)
     migrate = Migrate(app, db)
 
     @login_manager.user_loader
