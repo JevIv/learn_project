@@ -34,6 +34,7 @@ def ad_page(prod_db_id):
     date        = ad_items.pretty_date()
     image_urls  = Images.query.filter_by(product_id=prod_db_id).all()  # возвращает список объектов класса
     image_urls  = [image_url.img_url for image_url in image_urls]      # вытаскиваем из этих объектов ссылки и кладём в список
+    image_urls  = enumerate(image_urls)                                # это чтобы в рендер передать индексы элементов списка
     owner       = True if ad_items.created_by == current_user.id else False
     return render_template('advert/ad_page.html', ad_items=ad_items,
                             date=date, image_urls=image_urls, owner=owner)
