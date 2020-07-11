@@ -14,6 +14,7 @@ def save_products(name, price, date, text, address, ad_number, images_url_list, 
                                 ad_number=ad_number,
                                 created_by=user_id,
                                 status=status)
+
         db.session.add(all_products)  # кладем в сессию базы
         db.session.flush()            # добавляет данные в экземпляр таблицы, который без коммита пока лежит в приложении
                                       # благодаря этому мы можем на лету вытащить all_products.id (см. ниже)
