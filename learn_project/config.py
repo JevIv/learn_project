@@ -11,3 +11,5 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 SECRET_KEY = 'f6a205862b971721d3b1aaf0499be1262c2db7ab'
 ITEMS_PER_PAGE = 5
 SECRET_KEY = 'f6a205862b971721d3b1aaf0499be1262c2db7ab'
+IMAGES_DIR = os.path.join('learn_project', 'static', 'pictures', '')
+IMAGE_URL = os.path.sep.join(['', 'static', 'pictures', ''])

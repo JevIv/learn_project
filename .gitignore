@@ -110,3 +110,4 @@ venv.bak/
 .vscode/
 learn_project/test_.py
 learn_project.db
+learn_project/static/*

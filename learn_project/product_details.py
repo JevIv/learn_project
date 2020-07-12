@@ -54,30 +54,30 @@ def get_product_details(html):
 
 def parse_date(date: str) -> datetime:
 	locale.setlocale(locale.LC_ALL, "ru_RU")
-    relative_day = re.findall(r'Сегодня|Вчера', date)
+	relative_day = re.findall(r'Сегодня|Вчера', date)
 
-    if relative_day:
-        date_starts_with = date[0:5]
-        if date_starts_with == 'Вчера':
-            delta = timedelta(days=1)
-        if date_starts_with == 'Сегод':
-            delta = timedelta(days=0)
-        day = datetime.today().date() - delta
-        day = str(day)
-        time = re.findall(r'\d{1,2}[:-]\d{2}', date)
-        time = time[0]
-        right_date = f'{day} {time}'
+	if relative_day:
+		date_starts_with = date[0:5]
+		if date_starts_with == 'Вчера':
+			delta = timedelta(days=1)
+		if date_starts_with == 'Сегод':
+			delta = timedelta(days=0)
+		day = datetime.today().date() - delta
+		day = str(day)
+		time = re.findall(r'\d{1,2}[:-]\d{2}', date)
+		time = time[0]
+		right_date = f'{day} {time}'
 		try:
-			right_date = datetime.strptime(right_date, '%Y-%m-%d %H:%M')        
+			right_date = datetime.strptime(right_date, '%Y-%m-%d %H:%M')
 		except(ValueError):
 			right_date = datetime.now()
-        return(right_date)
+		return(right_date)
 
-    else:
-        year = datetime.today().year
-        date = f'{year},{date}'
+	else:
+		year = datetime.today().year
+		date = f'{year},{date}'
 		try:
 			right_date = datetime.strptime(date, '%Y,%d %B в %H:%M')
 		except(ValueError):
 			right_date = datetime.now()
-        return(right_date)
+		return(right_date)

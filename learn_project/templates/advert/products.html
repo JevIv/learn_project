@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-8">
+
+          {% for product in products_list %}
+            <h3><a href='{{ product.url }}'>{{ product.name }}</a></h3>
+            <p>{{ product.date }}</p>
+            <p>{{ product.price }}</p>
+            <hr/>
+          {% endfor %}
+
+          {% if prev_url %}
+            <a href="{{ prev_url }}">Назад</a>
+          {% endif %}
+          {% if next_url %}
+          <a href="{{ next_url }}">Вперёд</a>
+          {% endif %}
+
+    </div>
+</div>
+{% endblock %}   
