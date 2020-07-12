@@ -1,22 +1,23 @@
 from learn_project.model import db
+from sqlalchemy.orm import relationship
 
 class Comments(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
-    body = db.Column(db.String(280))
-    timestamp = db.Column(db.DateTime, index=True, default=datime.utcnow)
-    disabled = db.Column(db.Boolean)
-    author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
+    id = db.Column(db.Integer, primary_key=True)
+    body = db.Column(db.Text, nullable=False)
+    timestamp = db.Column(db.DateTime, 
+                          nullable=False,
+                          default=datetime.now())
+    author_id = db.Column(db.Integer, 
+                          db.ForeignKey('user.id', onedelete='CASCADE'),
+                          index=True)
+    product_id = db.Column(db.Integer,
+                          db.ForeignKey('product.id', onedelete='CASCADE'),
+                          index=True)
+    product = relationship('Products',backref='comments')
+    author = relationship('Users',backref='comments')
 
-    @staticmethod
-    def on_changed_body(target, value, oldvalue, initiator):
-    	allowed_tags = ['a', 'abbr', 'acronym', 'b',
-    					'code', 'em', 'i', 'strong']
-    	target.body_html = bleach.linkify(bleach.clean(
-    					markdown(value, output_format='html'),
-    					tags=allowed_tags, strip=True))
-    db.event.listen(Comments.body, 'set', Comments.on_changed_body)
-
+    def comments_count(self):
+        return Comment.query.filter(Comment.product_id == self.id).count()
 
     def __repr__(self):
         return '<Comments {}>'.format(self.body)

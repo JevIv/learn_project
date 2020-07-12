@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import current_user, login_user, logout_user
+from learn_project.utils import get_redirect_target
 from learn_project.model import db
 from learn_project.user.forms import LoginForm, RegistrationForm, Email, EqualTo
 from learn_project.user.model import Users
@@ -10,7 +11,7 @@ blueprint = Blueprint('user', __name__, url_prefix='/users')
 @blueprint.route('/login')
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(get_redirect_target())
     title = 'Авторизация'
     login_form = LoginForm()
     return render_template('login.html', page_title=title, form=login_form)
@@ -20,13 +21,13 @@ def login():
 def login_process():
     form = LoginForm()
 
-    if form.validate_on_submit:
+    if form.validate_on_submit():
         user = Users.query.filter(Users.username == form.username.data).first()
 
         if user and user.check_password(form.password.data):
             login_user(user)
             flash('logged in')
-            return redirect(url_for('index'))
+            return redirect(get_redirect_target())
 
         flash('wrong login or password')
         return redirect(url_for('user.login'))

@@ -12,7 +12,6 @@ class Products(db.Model):
     text = db.Column(db.Text, nullable=False)
     address = db.Column(db.String, nullable=False)
     ad_number = db.Column(db.String, unique=True, nullable=False)
-    comments = db.relationship('Comments', backref='product', lazy='dynamic')
 
     def get_comments(self):
         return Comments.query.filter_by(product_id=products.id).order_by(Comments.date.desc())
