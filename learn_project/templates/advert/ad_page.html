@@ -22,6 +22,29 @@
     </div>
     </div>
   </div>
+    {% if product.comments %}
+      <h3>Комментарии:</h3>
+      {% for comment in product.comments %}
+      <div class="card">
+          <div class="card-body">
+              <p class="card-text">{{ comment.text }}</p>
+              <p class="card-text">
+                  <small>Опубликовано: {{ comment.created.strftime('%d.%m.%Y') }} | 
+                      Автор: {{ comment.user.username }}</small>
+              </p>
+          </div>
+      </div>
+      {% endfor %}
+  {% endif %}
+  <form action="{{ url_for('product.add_comment') }}" method="POST">
+    {{ comment_form.hidden_tag() }}
+    <div class="form-group">
+        {{ comment_form.comment_text.label }}
+        {{ comment_form.comment_text() }}
+    </div>
+    {{ comment_form.submit() }}
+</form>
+    
 </div>
 
 <div class="card card-outline-secondary my-4">

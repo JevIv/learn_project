@@ -1,4 +1,5 @@
 from learn_project.model import db
+from datetime import datetime
 from sqlalchemy.orm import relationship
 
 class Comments(db.Model):
@@ -7,17 +8,14 @@ class Comments(db.Model):
     timestamp = db.Column(db.DateTime, 
                           nullable=False,
                           default=datetime.now())
-    author_id = db.Column(db.Integer, 
-                          db.ForeignKey('user.id', onedelete='CASCADE'),
+    user_id = db.Column(db.Integer, 
+                          db.ForeignKey('users.id', ondelete='CASCADE'),
                           index=True)
     product_id = db.Column(db.Integer,
-                          db.ForeignKey('product.id', onedelete='CASCADE'),
+                          db.ForeignKey('products.id', ondelete='CASCADE'),
                           index=True)
-    product = relationship('Products',backref='comments')
-    author = relationship('Users',backref='comments')
-
-    def comments_count(self):
-        return Comment.query.filter(Comment.product_id == self.id).count()
+    product = relationship('Products', backref='comments')
+    user = relationship('Users', backref='comments')
 
     def __repr__(self):
         return '<Comments {}>'.format(self.body)

@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from learn_project.model import Products
+from learn_project.advert.model import Products
 from wtforms.validators import DataRequired
 from wtforms import SubmitField, StringField, HiddenField
 

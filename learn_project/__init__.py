@@ -1,5 +1,5 @@
 #запуск сервера
-#set FLASK_APP=webapp && set FLASK_ENV=development && 
+#set FLASK_APP=learn_project && set FLASK_ENV=development && 
 #set FLASK_DEBUG=1 && flask run
 from flask import Flask, render_template
 from flask_login import LoginManager
@@ -20,6 +20,7 @@ def create_app():
     login_manager.login_view = 'user.login'
     app.register_blueprint(user_blueprint)
     app.register_blueprint(advert_blueprint)
+    app.register_blueprint(comments_blueprint)
     migrate = Migrate(app, db)
 
     @login_manager.user_loader

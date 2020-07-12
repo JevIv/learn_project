@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, flash, redirect, url_for
-from flask_login import current_user, login_user, logout_user
+from flask_login import current_user, login_user, logout_user, login_required
 from learn_project.utils import get_redirect_target
 from learn_project.model import db
 from learn_project.user.forms import LoginForm, RegistrationForm

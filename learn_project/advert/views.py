@@ -3,6 +3,7 @@ from flask_login import current_user
 from learn_project import config, db
 from learn_project.advert.model import Products, Images
 from learn_project.advert.forms import NewAdForm
+from learn_project.comments.forms import CommentForm
 from learn_project.save_to_db import save_products as save_new_ad
 
 blueprint = Blueprint('advert', __name__, url_prefix='/adverts')
@@ -35,8 +36,11 @@ def ad_page(prod_db_id):
     date = ad_items.date.strftime('%d.%m.%Y %H:%M')
     image_urls = Images.query.filter_by(product_id=prod_db_id).all()  # возвращает список объектов класса
     image_urls = [image_url.img_url for image_url in image_urls]      # вытаскиваем из этих объектов ссылки и кладём в список
+    comment_form = CommentForm(product_id=product_id)
+
     return render_template('advert/ad_page.html', ad_items=ad_items,
-                            date=date, image_urls=image_urls)
+                            date=date, image_urls=image_urls,
+                            comment_form=comment_form)
 
 
 @blueprint.route('/new_ad')
