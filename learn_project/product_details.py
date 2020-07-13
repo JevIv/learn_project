@@ -62,12 +62,11 @@ def get_product_details(html):
 
 
 def parse_date(date: str) -> datetime:
-	relative_day = re.findall(r'Сегодня|Вчера', date)
+	relative_day = re.findall(r'сегодня|вчера', date)
 	if relative_day:
-		date_starts_with = date[0:5]
-		if date_starts_with == 'Вчера':
+		if relative_day[0] == 'вчера':
 			delta = timedelta(days=1)
-		if date_starts_with == 'Сегод':
+		if relative_day[0] == 'сегод':
 			delta = timedelta(days=0)
 		day = datetime.today().date() - delta
 		day = str(day)
