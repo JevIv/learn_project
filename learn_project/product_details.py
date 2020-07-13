@@ -81,9 +81,9 @@ def parse_date(date: str) -> datetime:
 
 	else:
 		year = datetime.today().year
-		date = f'{year},{date}'
+		date = f'{year},{date.strip()}'
 		try:
-			right_date = datetime.strptime(date, '%Y,%d %B в %H:%M')
+		right_date = datetime.strptime(date, '%Y,%d %B в %H:%M')
 		except(ValueError):
 			right_date = datetime.now()
 		return(right_date)
