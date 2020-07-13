@@ -37,38 +37,15 @@
 
     </div>
     </div>
-  </div>
-    {% if product.comments %}
-      <h3>Комментарии:</h3>
-      {% for comment in product.comments %}
-      <div class="card">
-          <div class="card-body">
-              <p class="card-text">{{ comment.text }}</p>
-              <p class="card-text">
-                  <small>Опубликовано: {{ comment.created.strftime('%d.%m.%Y') }} | 
-                      Автор: {{ comment.user.username }}</small>
-              </p>
-          </div>
-      </div>
-      {% endfor %}
-  {% endif %}
-  <form action="{{ url_for('product.add_comment') }}" method="POST">
-    {{ comment_form.hidden_tag() }}
-    <div class="form-group">
-        {{ comment_form.comment_text.label }}
-        {{ comment_form.comment_text() }}
-    </div>
-    {{ comment_form.submit() }}
-</form>
-    
+  </div>    
 </div>
 
 <div class="card card-outline-secondary my-4">
   <div class="card-header">
-    {{ad_items.ad_number}}
+    <p>Номер обьявления: {{ad_items.ad_number}}</p>
   </div>
   <div class="card-body">
-    <p>{{ad_items.address}}</p>
+    <p>Находится по адресу: {{ad_items.address}}</p>
   </div>
 </div>
 
@@ -77,6 +54,30 @@
   <a href="{{ url_for('advert.edit', ad_id=ad_items.id) }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Редактировать</a>
   <a href="{{ url_for('advert.hide', ad_id=ad_items.id) }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Скрыть</a>
   <a href="{{ url_for('advert.sold', ad_id=ad_items.id) }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Продано</a>
+</div>
+<div class="col-6">
+    {% if ad_items.comments %}
+      <h2>Комментарии:</h2>
+      {% for comment in ad_items.comments %}
+      <div class="card">
+          <div class="card-body">
+              <p class="card-text">{{ comment.text }}</p>
+              <p class="card-text">
+                  <small>Опубликовано: {{ comment.timestamp.strftime('%d.%m.%Y') }} | 
+                      Автор: {{ comment.users.username }}</small>
+              </p>
+          </div>
+      </div>
+      {% endfor %}
+  {% endif %}
+  <form action="{{ url_for('comments.add_comment') }}" method="POST">
+    {{ comment_form.hidden_tag() }}
+    <div class="form-group">
+        {{ comment_form.comment_text.label }}
+        {{ comment_form.comment_text() }}
+    </div>
+    {{ comment_form.submit() }}
+</form>
 </div>
 {% endif %}
 
