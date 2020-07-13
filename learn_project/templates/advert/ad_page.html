@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+  <div class="col-8">
+    <div class="card mt-4">
+      <div class="card-body">
+        <h3 class="card-title">{{ad_items.name}}</h3>
+        <h4>{{ad_items.price}} р. </h4>
+        <p class="card-text">{{ad_items.text}}</p>
+        <small class="text-muted">{{date}}</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-4"> 
+    <div class="card mt-4">
+      <div class="card-body">
+
+        <!-- image_urls это список кортежей (index, url) -->
+        {% for item in image_urls %}
+        
+        <!-- это всплывающая (modal) картинка -->
+        <div class="modal fade" id="modal_image{{item[0]}}">
+          <div class="modal-dialog modal-lg">
+                <p style="text-align:center">
+                  <img src="{{item[1]}}" width="90%">
+                </p>
+          </div>
+        </div>
+
+        <!-- отсюда идёт вызов модальной картинки -->
+        <a href="#" data-toggle="modal" data-target="#modal_image{{item[0]}}">
+          <img src="{{item[1]}}" width="100">
+        </a>
+        {% endfor %}
+
+    </div>
+    </div>
+  </div>
+</div>
+
+<div class="card card-outline-secondary my-4">
+  <div class="card-header">
+    {{ad_items.ad_number}}
+  </div>
+  <div class="card-body">
+    <p>{{ad_items.address}}</p>
+  </div>
+</div>
+
+{% if owner %}
+<div class="col-6">
+  <a href="{{ url_for('advert.edit', ad_id=ad_items.id) }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Редактировать</a>
+  <a href="{{ url_for('advert.hide', ad_id=ad_items.id) }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Скрыть</a>
+  <a href="{{ url_for('advert.sold', ad_id=ad_items.id) }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Продано</a>
+</div>
+{% endif %}
+
+{% endblock %}
