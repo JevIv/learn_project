@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import FileField, IntegerField, StringField
+from wtforms import FileField, IntegerField, HiddenField, StringField
 from wtforms import SubmitField, TextAreaField
 from wtforms.validators import DataRequired
 
@@ -30,5 +30,5 @@ class NewAdForm(FlaskForm):
                                      "placeholder": "г.Воронеж, ул.Ленина, д.42"})
 
     image = FileField('Фотографии')
-
     submit = SubmitField('Продолжить', render_kw={"class": "btn btn-primary"})
+    ad_id = HiddenField('id объявления')

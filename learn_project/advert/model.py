@@ -12,12 +12,17 @@ class Products(db.Model):
     address = db.Column(db.String, nullable=False)
     ad_number = db.Column(db.String, unique=True, nullable=False)
     created_by = db.Column(db.Integer, db.ForeignKey('users.id'))
+    status = db.Column(db.String, nullable=True)
 
     def __repr__(self):
         return '<Products {} {}>'.format(self.id, self.name)
 
     def default_date():
         return dt.now()
+
+    def pretty_date(self):  # Эта штука принимает на вход экземпляр класса и возвращает дату в красивом виде
+        date = self.date.strftime('%d.%m.%Y %H:%M')
+        return date
 
     def generate_ad_number():
         return uuid.uuid4().time_low

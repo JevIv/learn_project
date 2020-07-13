@@ -16,9 +16,25 @@
   <div class="col-4"> 
     <div class="card mt-4">
       <div class="card-body">
-        {% for url in image_urls %}
-        <img src="{{url}}" width="100" height="75">
+
+        <!-- image_urls это список кортежей (index, url) -->
+        {% for item in image_urls %}
+        
+        <!-- это всплывающая (modal) картинка -->
+        <div class="modal fade" id="modal_image{{item[0]}}">
+          <div class="modal-dialog modal-lg">
+                <p style="text-align:center">
+                  <img src="{{item[1]}}" width="90%">
+                </p>
+          </div>
+        </div>
+
+        <!-- отсюда идёт вызов модальной картинки -->
+        <a href="#" data-toggle="modal" data-target="#modal_image{{item[0]}}">
+          <img src="{{item[1]}}" width="100">
+        </a>
         {% endfor %}
+
     </div>
     </div>
   </div>
@@ -55,4 +71,13 @@
     <p>{{ad_items.address}}</p>
   </div>
 </div>
+
+{% if owner %}
+<div class="col-6">
+  <a href="{{ url_for('advert.edit', ad_id=ad_items.id) }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Редактировать</a>
+  <a href="{{ url_for('advert.hide', ad_id=ad_items.id) }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Скрыть</a>
+  <a href="{{ url_for('advert.sold', ad_id=ad_items.id) }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Продано</a>
+</div>
+{% endif %}
+
 {% endblock %}
