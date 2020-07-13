@@ -1,17 +1,3 @@
-<<<<<<< HEAD
-from flask import Flask, render_template
-import config as cfg
-
-def create_app():
-    app = Flask(__name__) # создает экземпляр Flask в переменной app
-    app.config.from_pyfile('config.py') # задает файл конфигурационный файл
-    @app.route('/') # путь, перейдя по котрому запустится app
-
-    def index(): # возвращает стартовую страничку
-        return render_template ('index.html')
-    
-    return app # возвращает экземпляр приложения Flask
-=======
 #запуск сервера
 #set FLASK_APP=webapp && set FLASK_ENV=development && 
 #set FLASK_DEBUG=1 && flask run
@@ -44,4 +30,3 @@ def create_app():
         return render_template('advert/index.html', page_title='Тут вам не авито!')
 
     return app  # возвращает экземпляр приложения Flask
->>>>>>> e99760d2e5b23a0ba8ac435756c59baef3262361

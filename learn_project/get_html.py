@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-import requests
-
-def get_html(url):
-    try:
-        response = requests.get(url) # сюда падает текст из ответа на get
-        response.raise_for_status()
-        return response.text
-    except(requests.RequestException, ValueError):
-        return False
-=======
 from bs4 import BeautifulSoup as bs
 from fake_headers import Headers
 from time import sleep
@@ -40,7 +29,7 @@ def last_page(text):  # Находит номер последней стран�
     soup = bs(text, 'html.parser')
     pagination = soup.find_all('span', class_="pagination-item-1WyVp")  # Находит 'кнопки' в разделе pagination
     if pagination:
-        digits = re.findall(r'\d{2,4}', pagination[-2]['data-marker'],)  # Вытаскивает цифры из предпоследней кнопки
+        digits = re.findall(r'\d{1,4}', pagination[-2]['data-marker'])  # Вытаскивает цифры из предпоследней кнопки
         last_page = int(digits[0])  # Преобрузует цифры в int
     else:
         last_page = 1
@@ -53,4 +42,3 @@ def get_all_pages(url):  # Делает итерацию по страницам
     for page_number in range(1, max_page):
         all_pages.append(get_html(url, page_number))  # Добавляет страницу (str) как элемент списка
     return all_pages
->>>>>>> e99760d2e5b23a0ba8ac435756c59baef3262361
