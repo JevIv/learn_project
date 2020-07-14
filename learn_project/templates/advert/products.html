@@ -4,12 +4,11 @@
   <div class="row">
     <div class="col-8">
 
-          <h2>Товары</h2>
           {% for product in products_list %}
-          <h3><a href='{{ product.url }}'>{{ product.name }}</a></h3>
-          <p>{{ product.date }}</p>
-          <p>{{ product.price }}</p>
-          <hr/>
+            <h3><a href="{{ url_for('advert.ad_page', prod_db_id=product.id) }}"> {{ product.name }}</a></h3>
+            <p>{{ product.pretty_date() }}</p>
+            <p>{{ product.price }} р. </p>
+            <hr/>
           {% endfor %}
 
           {% if prev_url %}
