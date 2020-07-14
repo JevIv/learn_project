@@ -109,5 +109,5 @@ venv.bak/
 .DS_Store
 .vscode/
 learn_project/test_.py
-learn_project.db
+learn_project.db*
 learn_project/static/*
