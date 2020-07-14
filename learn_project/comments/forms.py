@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from learn_project.advert.model import Products
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, ValidationError
 from wtforms import SubmitField, StringField, HiddenField
 
 class CommentForm(FlaskForm):

@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import current_user, login_user, logout_user, login_required
-from learn_project.utils import get_redirect_target
 from learn_project.model import db
 from learn_project.user.forms import LoginForm, RegistrationForm
 from learn_project.user.model import Users
@@ -21,7 +20,7 @@ def admin_index():
 @blueprint.route('/login')
 def login():
     if current_user.is_authenticated:
-        return redirect(get_redirect_target())
+        return redirect(url_for('index'))
     title = 'Авторизация'
     login_form = LoginForm()
     return render_template('user/login.html', page_title=title, form=login_form)
@@ -37,7 +36,7 @@ def login_process():
         if user and user.check_password(form.password.data):
             login_user(user)
             flash('logged in')
-            return redirect(get_redirect_target())
+            return redirect(url_for('index'))
 
         flash('wrong login or password')
         return redirect(url_for('user.login'))
