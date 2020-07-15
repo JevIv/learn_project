@@ -32,6 +32,9 @@ class Products(db.Model):
         new_filename = str(uuid.uuid4().time_low) + '.' + extension
         return new_filename
 
+    def comments_count(self):
+        return Comment.query.filter(Comment.product_id == self.id).count()
+
 
 class Images(db.Model):
     id = db.Column(db.Integer, primary_key=True)
