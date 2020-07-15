@@ -23,7 +23,7 @@ def get_redirect_target():
             return target
 
 
-def send_mail(dst_mail, subj, body):
+def send_mail(dst_mail: str, subj: str, body: str):
     message = Mail(
         from_email=SRC_MAIL,
         to_emails=dst_mail,
@@ -40,7 +40,7 @@ def send_mail(dst_mail, subj, body):
 
 
 def comment_notification(product_id, comment_text):
-    ad_owner_id = Products.query.get(product_id).created_by  # Определяем хозиина объявления
+    ad_owner_id = Products.query.get(product_id).created_by  # Определяем хозяина объявления
     ad_title    = Products.query.get(product_id).name
     mail_to     = Users.query.get(ad_owner_id).email  # Определяем email хозяина объявления
 
