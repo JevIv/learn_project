@@ -1,11 +1,15 @@
+{% extends "base.html" %}
+
 {% block content %}
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      <ul class="flashes">
-      {% for message in messages %}
-        <li>{{ message }}</li>
-      {% endfor %}
-      </ul>
-    {% endif %}
-  {% endwith %}
+  <div class="row">
+      <div class="col-12">
+        {% if results %}
+          <h2>Результаты поиска:</h2>
+          {% for result in results %}
+            <p>result</p>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+
 {% endblock %}

@@ -1,21 +1,24 @@
-"""from flask import Blueprint, flash, redirect, render_template, url_for
-from learn_project.search.forms import SearchForm
+from flask import Blueprint, flash, redirect, render_template, request#, url_for
+#from learn_project.search.forms import SearchForm
+from learn_project.advert.model import Products
 
 
-blueprint = Blueprint('search', __name__)
+blueprint = Blueprint('search', __name__,url_prefix='/')
 
 
-@blueprint.route('/search', methods=['GET', 'POST'])
-def search():
-	query = request.args.get('query')  
-	        query = request.args.get('query')  
-	        if query:
-	            results = Products.query.filter(Products.name.contains(query) | Products.text.contains(query)).all()
-	        else:
-	            results = flash('По запросу ничего не найдено!')						 # возвращает стартовую страничку
-	            return redirect('/')
+@blueprint.route('/search')
+def search():  
+    query = request.args.get('query')
+#    results = []  
+    if query:
+        results = Products.query.filter(Products.name.contains(query) | Products.text.contains(query)).all()
+
+    else:
+        results = flash('По запросу ничего не найдено!')
+    return render_template('search.html', page_title='Тут вам не авито!', results=results)
 
 
+"""
 	results = []
 	form = SearchForm()
 	search_item = form.search.data
@@ -29,4 +32,5 @@ def search():
 		else:
 			return render_template('navbar.html', 
 	    							form=form,
-	    							results=results)"""
+	    							results=results)
+"""

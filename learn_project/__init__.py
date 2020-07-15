@@ -9,7 +9,7 @@ from learn_project.advert.model import Products
 from learn_project.user.views import blueprint as user_blueprint
 from learn_project.advert.views import blueprint as advert_blueprint
 from learn_project.comments.views import blueprint as comments_blueprint
-#from learn_project.search.views import blueprint as search_blueprint
+from learn_project.search.views import blueprint as search_blueprint
 from flask_migrate import Migrate
 
 
@@ -23,7 +23,7 @@ def create_app():
     app.register_blueprint(user_blueprint)
     app.register_blueprint(advert_blueprint)
     app.register_blueprint(comments_blueprint)
-#    app.register_blueprint(search_blueprint)
+    app.register_blueprint(search_blueprint)
     migrate = Migrate(app, db)
 
     @login_manager.user_loader
@@ -31,12 +31,7 @@ def create_app():
         return Users.query.get(user_id)
 
     @app.route('/')  					 # путь, перейдя по котрому запустится app
-    def index():                         # возвращает стартовую страничку
-        query = request.args.get('query')  
-        if query:
-            results = Products.query.filter(Products.name.contains(query) | Products.text.contains(query)).all()
-        else:
-            results = flash('По запросу ничего не найдено!')						
+    def index():                         # возвращает стартовую страничку					
         return render_template('advert/index.html', page_title='Тут вам не авито!')
 
     return app  # возвращает экземпляр приложения Flask
