@@ -104,6 +104,9 @@ venv.bak/
 .mypy_cache/
 
 # idea
+<<<<<<< HEAD
+.idea/*
+=======
 .idea/*
 
 .DS_Store
@@ -111,3 +114,4 @@ venv.bak/
 learn_project/test_.py
 learn_project.db
 learn_project/static/*
+>>>>>>> e99760d2e5b23a0ba8ac435756c59baef3262361

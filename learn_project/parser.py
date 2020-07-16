@@ -20,16 +20,14 @@ def parse():
     flat_url_list = unfold_list(list_of_url_lists)
     print(f'total urls {len(flat_url_list)}')
 
-    # принимает список url товаров, возвращает список str html товаров
-    products_htmls = [get_html(url) for url in flat_url_list]
-    print(f'total product htmls {len(products_htmls)}')
-
-    # принимает список html страниц товаров, пишет результаты парсинга в бд
+    # принимает список url товаров
     app = create_app()
-    with app.app_context():
-        for products_html in products_htmls:
-            details = get_product_details(products_html)
-            save_products(*details.values())
+    for url in flat_url_list:
+        product_html = get_html(url)  # собирает с них html
+        with app.app_context():
+            details = get_product_details(product_html)  # парсит
+            save_products(*details.values())  # пишет результаты парсинга в бд
+            print(f"сохранил {details['name']}")
 
 
 if __name__ == '__main__':
