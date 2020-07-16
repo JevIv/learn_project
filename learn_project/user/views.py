@@ -30,7 +30,7 @@ def login():
 def login_process():
     form = LoginForm()
 
-    if form.validate_on_submit:
+    if form.validate_on_submit():
         user = Users.query.filter(Users.username == form.username.data).first()
 
         if user and user.check_password(form.password.data):
