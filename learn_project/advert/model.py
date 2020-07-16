@@ -33,7 +33,7 @@ class Products(db.Model):
         return new_filename
 
     def comments_count(self):
-        return Comment.query.filter(Comment.product_id == self.id).count()
+        return Comments.query.filter(Comments.product_id == self.id).count()
 
 
 class Images(db.Model):
