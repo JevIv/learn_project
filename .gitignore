@@ -105,7 +105,6 @@ venv.bak/
 
 # idea
 .idea/*
-
 .DS_Store
 .vscode/
 learn_project/test_.py
