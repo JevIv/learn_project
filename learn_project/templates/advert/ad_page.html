@@ -56,6 +56,8 @@
   <a href="{{ url_for('advert.sold', ad_id=ad_items.id) }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Продано</a>
 </div>
 
+{% endif %}
+
 <div class="col-6">
     {% if ad_items.comments %}
       <h2>Комментарии:</h2>
@@ -70,7 +72,7 @@
           </div>
       </div>
       {% endfor %}
-  {% endif %}
+    {% endif %}
   <form action="{{ url_for('comments.add_comment') }}" method="POST">
     {{ comment_form.hidden_tag() }}
     <div class="form-group">
@@ -78,9 +80,7 @@
         {{ comment_form.comment_text() }}
     </div>
     {{ comment_form.submit() }}
-</form>
+  </form>
 </div>
-
-{% endif %}
 
 {% endblock %}

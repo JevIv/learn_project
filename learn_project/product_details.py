@@ -13,12 +13,12 @@ def get_product_details(html):
 	soup = bs(html, 'html.parser')
 	product = soup.find('div', class_='item-view js-item-view')  # контейнер с товаром, все поиски ниже ведутся в нём
 	name = product.find('span', class_='title-info-title-text').text
-	
+
 	try:
 		price = product.find('span', class_='js-item-price').text
 	except(AttributeError):
 		price = product.find('span', class_='price-value-string js-price-value-string').text
-	
+
 	try:
 		date = product.find('div', class_='title-info-metadata-item-redesign').text
 		date = parse_date(date)

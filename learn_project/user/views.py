@@ -17,6 +17,7 @@ def admin_index():
         flash('вы не админ')
         return redirect(url_for('index'))
 
+
 @blueprint.route('/login')
 def login():
     if current_user.is_authenticated:
@@ -46,7 +47,7 @@ def login_process():
 def logout():
     logout_user()
     flash('bb gl hf')
-    return redirect(url_for('index'))
+    return redirect(url_for('user.login'))
 
 
 @blueprint.route('/register')
