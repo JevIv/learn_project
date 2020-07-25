@@ -6,7 +6,10 @@
         {% if results %}
           <h2>Результаты поиска:</h2>
           {% for result in results %}
-            <p><a href="{{ url_for('advert.ad_page', prod_db_id=results_id) }}">{{ result }}</p>
+            <h3><a href="{{ url_for('advert.ad_page', prod_db_id=result.id) }}">{{ result.name }}</a></h3>
+            <p>{{ result.pretty_date() }}</p>
+            <p>{{ result.price }} р. </p>
+            <hr/>
           {% endfor %}
         {% else %}
           {% with messages = get_flashed_messages() %}
