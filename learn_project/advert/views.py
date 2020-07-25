@@ -7,6 +7,7 @@ from learn_project.save_to_db import save_new_ad
 from learn_project.save_to_db import save_edit
 from learn_project.comments.forms import CommentForm
 
+
 blueprint = Blueprint('advert', __name__, url_prefix='/adverts')
 
 
@@ -36,6 +37,7 @@ def ad_page(prod_db_id):
     image_urls  = Images.query.filter_by(product_id=prod_db_id).all()  # возвращает список объектов класса
     image_urls  = [image_url.img_url for image_url in image_urls]      # вытаскиваем из этих объектов ссылки и кладём в список
     image_urls  = enumerate(image_urls)                                # это чтобы в рендер передать индексы элементов списка
+    comment_form = CommentForm(product_id=prod_db_id)                  
     if current_user.is_anonymous:                                      # без этой проверки ошибка базы если пользователь не залогинен
         owner   = False
     else:

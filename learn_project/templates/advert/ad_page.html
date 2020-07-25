@@ -55,6 +55,7 @@
   <a href="{{ url_for('advert.hide', ad_id=ad_items.id) }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Скрыть</a>
   <a href="{{ url_for('advert.sold', ad_id=ad_items.id) }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Продано</a>
 </div>
+
 <div class="col-6">
     {% if ad_items.comments %}
       <h2>Комментарии:</h2>
@@ -79,6 +80,7 @@
     {{ comment_form.submit() }}
 </form>
 </div>
+
 {% endif %}
 
 {% endblock %}
