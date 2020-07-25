@@ -24,6 +24,7 @@ def save_products(name, price, date, text, address, ad_number, images_url_list, 
         db.session.commit()  # сохранение всё в базу
 
 
+# Сохраняет в базу то, что прилетело из save_edit
 def save_changes(name, price, text, address, file_urls, ad_id):
     changes = Products.query.get(ad_id)
     changes.name = name
@@ -37,6 +38,7 @@ def save_changes(name, price, text, address, file_urls, ad_id):
     db.session.commit()
 
 
+# Добавление нового объявления
 def save_new_ad(form, user_id):
     name        = form.name.data
     price       = str(form.price.data)
@@ -55,6 +57,8 @@ def save_new_ad(form, user_id):
     save_products(name, price, date, text, address, ad_number, file_urls, user_id)
 
 
+# Эта штука принимает форму редактирования объявления
+# И подготавливает новые поля для сохранения в базу
 def save_edit(form):
     ad_id       = form.ad_id.data
     name        = form.name.data
@@ -69,5 +73,5 @@ def save_edit(form):
         form.image.data.save(file_path)
     else:
         file_urls = ''
-    save_changes(name=name, price=price, text=text, address=address,
+    save_changes(name=name, price=price, text=text, address=address,  # Вот тут она передаёт новые поля в базу
                  file_urls=file_urls, ad_id=ad_id)

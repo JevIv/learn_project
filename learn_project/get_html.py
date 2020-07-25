@@ -29,7 +29,7 @@ def last_page(text):  # Находит номер последней стран�
     soup = bs(text, 'html.parser')
     pagination = soup.find_all('span', class_="pagination-item-1WyVp")  # Находит 'кнопки' в разделе pagination
     if pagination:
-        digits = re.findall(r'\d{2,4}', pagination[-2]['data-marker'],)  # Вытаскивает цифры из предпоследней кнопки
+        digits = re.findall(r'\d{1,4}', pagination[-2]['data-marker'])  # Вытаскивает цифры из предпоследней кнопки
         last_page = int(digits[0])  # Преобрузует цифры в int
     else:
         last_page = 1
