@@ -18,9 +18,9 @@
                 </li>
             {% endif %}
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Поиск" aria-label="Поиск">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+        <form method="GET" class="form-inline my-2 my-lg-0" action="{{ url_for('search.search') }}">
+            <input class="form-control mr-sm-2" type="sear ch" placeholder="Поиск" aria-label="Поиск" name="query", value ={{ request.args.get("query", " ") }}>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
         </form>
         <ul class="navbar-nav">
                 {% if current_user.is_authenticated %}
