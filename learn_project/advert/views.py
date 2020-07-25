@@ -5,6 +5,8 @@ from learn_project.advert.model import Products, Images
 from learn_project.advert.forms import NewAdForm
 from learn_project.save_to_db import save_new_ad
 from learn_project.save_to_db import save_edit
+from learn_project.comments.forms import CommentForm
+
 
 blueprint = Blueprint('advert', __name__, url_prefix='/adverts')
 
@@ -35,12 +37,14 @@ def ad_page(prod_db_id):
     image_urls  = Images.query.filter_by(product_id=prod_db_id).all()  # возвращает список объектов класса
     image_urls  = [image_url.img_url for image_url in image_urls]      # вытаскиваем из этих объектов ссылки и кладём в список
     image_urls  = enumerate(image_urls)                                # это чтобы в рендер передать индексы элементов списка
+    comment_form = CommentForm(product_id=prod_db_id)                  
     if current_user.is_anonymous:                                      # без этой проверки ошибка базы если пользователь не залогинен
         owner   = False
     else:
         owner   = True if ad_items.created_by == current_user.id else False  # является ли юзер создателем объявления
     return render_template('advert/ad_page.html', ad_items=ad_items,
-                            date=date, image_urls=image_urls, owner=owner)
+                            date=date, image_urls=image_urls, owner=owner,
+                            comment_form=comment_form)
 
 
 @blueprint.route('/new_ad')  # Добавить новое объявление
