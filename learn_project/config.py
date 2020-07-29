@@ -8,7 +8,7 @@ ITEMS_PER_PAGE = 5
 PROXY = {'http': 'http://127.0.0.1:5566',
          'https': 'https://127.0.0.1:5566'}
 SECRET_KEY = 'f6a205862b971721d3b1aaf0499be1262c2db7ab'
-SENDGRID_API_KEY = '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'
+SENDGRID_API_KEY = 'API_KEY_HERE'
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, '..', 'learn_project.db')
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 SRC_MAIL = 'learn_project@mail.ru'

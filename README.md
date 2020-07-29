@@ -1,7 +1,7 @@
 # learn_project
 
 ### Запуск web-сервера <br>
-`export FLASK_APP=learn_project && export FLASK_ENV=development && flask run`
+`run.sh`
 
 ### Запуск локального прокси в docker
 1. Установить docker

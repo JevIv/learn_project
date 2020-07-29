@@ -66,7 +66,7 @@ def parse_date(date: str) -> datetime:
 	if relative_day:
 		if relative_day[0] == 'вчера':
 			delta = timedelta(days=1)
-		if relative_day[0] == 'сегод':
+		if relative_day[0] == 'сегодня':
 			delta = timedelta(days=0)
 		day = datetime.today().date() - delta
 		day = str(day)
@@ -83,7 +83,7 @@ def parse_date(date: str) -> datetime:
 		year = datetime.today().year
 		date = f'{year},{date.strip()}'
 		try:
-		right_date = datetime.strptime(date, '%Y,%d %B в %H:%M')
+			right_date = datetime.strptime(date, '%Y,%d %B в %H:%M')
 		except(ValueError):
 			right_date = datetime.now()
 		return(right_date)
