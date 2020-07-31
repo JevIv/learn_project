@@ -35,11 +35,11 @@ def get_product_details(html):
 	images_url_list = []  # ниже идёт проверка на картинки,
 	try:			  # сначала проверяет на список приложенных картинок,
 					# если нету, то забирает главную картинку
-		gallery_list = product.find('ul', class_='gallery-list js-gallery-list')
-		images = gallery_list.findAll('img')
+		gallery_list = product.find('div', class_='gallery-imgs-container js-gallery-imgs-container')
+		images = gallery_list.findAll('div', 'gallery-img-frame js-gallery-img-frame')
 
 		for image in images:
-			urls = image['src']
+			urls = image['data-url']
 			images_url_list.append(urls)
 
 	except(AttributeError):
