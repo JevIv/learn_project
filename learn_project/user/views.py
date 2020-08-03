@@ -1,8 +1,9 @@
 from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import current_user, login_user, logout_user, login_required
 from learn_project.model import db
-from learn_project.user.forms import LoginForm, RegistrationForm
+from learn_project.user.forms import AdminForm, LoginForm, RegistrationForm
 from learn_project.user.model import Users
+from learn_project.utils import get_redirect_target, run_parser
 
 blueprint = Blueprint('user', __name__, url_prefix='/users')
 
@@ -11,11 +12,21 @@ blueprint = Blueprint('user', __name__, url_prefix='/users')
 @login_required
 def admin_index():
     title = 'Админка'
+    admin_form = AdminForm()
     if current_user.is_admin:
-        return render_template('user/admin_page.html', page_title=title)
+        return render_template('user/admin_page.html', page_title=title, form=admin_form)
     else:
         flash('вы не админ')
         return redirect(url_for('index'))
+
+
+@blueprint.route('/parse')
+@login_required
+def parse():
+    if current_user.is_admin:
+        run_parser()
+        flash('Парсер запущен')
+        return redirect(get_redirect_target())
 
 
 @blueprint.route('/login')

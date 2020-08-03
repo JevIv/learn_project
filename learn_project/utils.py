@@ -6,6 +6,7 @@ from learn_project.user.model import Users
 # https://github.com/sendgrid/sendgrid-python
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
+from subprocess import Popen
 from urllib.parse import urlparse, urljoin
 
 
@@ -21,6 +22,10 @@ def get_redirect_target():
             continue
         if is_safe_url(target):
             return target
+
+
+def run_parser():
+    Popen(['python3', 'learn_project/parser.py'])
 
 
 def send_mail(dst_mail: str, subj: str, body: str):
